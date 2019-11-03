@@ -24,9 +24,9 @@ pod "Elliotable"
 ```swift
 import Elliotable
 
-let course_1 = ElliottEvent(courseName: "운영체제", roomName: "정보과학관 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: UIColor(red: 1.0, green: 0.73, blue: 0.0, alpha: 1.0), tapHandler: handler)
+let course_1 = ElliottEvent(courseName: "운영체제", roomName: "정보과학관 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
 
-let course_2 = ElliottEvent(courseName: "운영체제", roomName: "정보과학관 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", backgroundColor: UIColor(red: 0.0, green: 0.83, blue: 0.62, alpha: 1.0), tapHandler: handler)
+let course_2 = ElliottEvent(courseName: "운영체제", roomName: "정보과학관 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
 
 elliotable.courseItems = [course_1, course_2]
 elliotable.userDaySymbol = daySymbol
