@@ -1,7 +1,6 @@
 # Elliotable
-# TimeTable Open Source Library for iOS (Swift)
 
-# Author : Elliott Kim
-# From : Seoul, South Korea
-
-# Swift Version : Swift 5
+Timetable Library for iOS Development 
+Author : Elliott Kim
+From : Seoul, South Korea
+Soongsil University Dept. of Computer Science & Engineering
