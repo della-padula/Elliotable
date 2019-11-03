@@ -1,9 +1,7 @@
 # Elliotable
 
 Timetable Library for iOS Development   
-Author : Elliott Kim   
-Seoul, South Korea   
-Soongsil University Dept. of Computer Science & Engineering   
+Author : Elliott Kim / Seoul, South Korea   
    
 [![Version](https://img.shields.io/badge/version-v0.0.3-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
