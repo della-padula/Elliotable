@@ -1,5 +1,8 @@
 # Elliotable
+Elliotable is simple library to generate Timetable of University.   
+If you only add a course, the course time is automatically calculated and added to the timetable.   
 
+### Author Information
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
    
@@ -11,19 +14,36 @@ Author : Elliott Kim / Seoul, South Korea
 ## Installation
 
 ### Cocoapods
-
+Elliotable is available through CocoaPods, to install it simply add the following line to your Podfile:   
 ```ruby
 pod "Elliotable"
 ```
 
-## Usage
+## Usage   
+### Course Item Structure   
+```swift
+courseName : The name of the course
+roomName : The name of the lecture room
+courseDay : Weekday of the course
+startTime : Start time of course (String type - format : "HH:mm")
+endTime : End time of course (String type - format : "HH:mm")
+backgroundColor : backgroud color of each course item
+tapHandler : on Touch Event Listener for each course item.
+```
+
+### How to use   
+First, import my library by adding line below.   
 ```swift
 import Elliotable
-
+```
+And then, create courses to add to the timetable.   
+```swift
 let course_1 = ElliottEvent(courseName: "운영체제", roomName: "정보과학관 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
 
 let course_2 = ElliottEvent(courseName: "운영체제", roomName: "정보과학관 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
-
+```
+Finally, define the properties of the timetable.   
+```swift
 elliotable.courseItems = [course_1, course_2]
 elliotable.userDaySymbol = daySymbol
 elliotable.dayCount = daySymbol.count
@@ -34,3 +54,6 @@ elliotable.cornerRadius = 5
 elliotable.textEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
 elliotable.maximumNameLength = 12
 ```
+
+On your storyboard, just add a "View" Component.     
+On the Inspector Frame, choose the View class to "Elliotable"   
