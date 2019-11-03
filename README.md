@@ -10,8 +10,6 @@ Soongsil University Dept. of Computer Science & Engineering
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Platform](https://img.shields.io/cocoapods/p/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 
-A flexible timetable for curricula written in Swift.
-
 ## Installation
 
 ### Cocoapods
