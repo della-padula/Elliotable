@@ -15,8 +15,8 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "Elliotable.podspec"
-  spec.version      = "0.0.2"
+  spec.name         = "Elliotable"
+  spec.version      = "0.0.3"
   spec.summary      = "This is Taein Kim's Elliotable Library which is generate timatable for lecture."
 
   # This description is used to generate tags and improve search results.
@@ -62,7 +62,7 @@ Pod::Spec.new do |spec|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # spec.platform     = :ios, "13.2"
+  spec.platform     = :ios
   # spec.platform     = :ios, "5.0"
 
   #  When using multiple platforms
