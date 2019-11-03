@@ -131,17 +131,18 @@ public class Elliotable: UIView {
         }
     }
     
-    var daySymbols: [String] {
+    public var daySymbols: [String] {
         var daySymbols = [String]()
         daySymbols = userDaySymbol ?? Calendar.current.shortStandaloneWeekdaySymbols
         
         let startIndex = startDay.rawValue - 1
         daySymbols.rotate(shiftingToStart: startIndex)
+        
         return daySymbols
     }
     
     var averageWidth: CGFloat {
-        return (collectionView.frame.width - widthOfPeriodSymbol) / 7 - 0.1
+        return (collectionView.frame.width - widthOfPeriodSymbol) / CGFloat(daySymbols.count) - 0.1
     }
     
     public override init(frame: CGRect) {
@@ -200,7 +201,6 @@ public class Elliotable: UIView {
                     maxEndTimeHour = tempEndTimeHour
                 }
             }
-            print(courseItem.startTime.split(separator: ":")[0])
         }
         
         maxEndTimeHour += 1
@@ -209,7 +209,7 @@ public class Elliotable: UIView {
         let courseCount = maxEndTimeHour - minStartTimeHour
         
         for (index, courseItem) in courseItems.enumerated() {
-            let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + 7) % 7
+            let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + daySymbols.count) % daySymbols.count
             
             let courseStartHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
             let courseStartMin  = Int(courseItem.startTime.split(separator: ":")[1]) ?? 00
@@ -224,7 +224,12 @@ public class Elliotable: UIView {
             
             // 요일 높이 + 평균 셀 높이 * 시간 차이 개수 + 분에 대한 추가 여백
             let y = heightOfDaySymbols + averageHeight * CGFloat(courseStartHour - minStartTimeHour) +
-                CGFloat(CGFloat(courseStartMin / 60) * averageHeight) + rectEdgeInsets.top
+                CGFloat((CGFloat(courseStartMin) / 60) * averageHeight) + rectEdgeInsets.top
+            
+//            print("courseStartMin : \(courseStartMin)")
+//            print("Min Top Space : \(CGFloat((CGFloat(courseStartMin) / 60) * averageHeight))")
+            
+            print(averageWidth)
             
             let width = averageWidth - rectEdgeInsets.left - rectEdgeInsets.right
             let height = averageHeight * CGFloat(courseEndHour - courseStartHour) +

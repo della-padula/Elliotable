@@ -46,7 +46,8 @@ extension ElliotableController: UICollectionViewDataSource {
         
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour
-        return (courseCount + 1) * 8
+        // 7 = 6 + 1(좌측 열 1개)
+        return (courseCount + 1) * (ellioTable.dayCount + 1)
     }
     
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -58,10 +59,11 @@ extension ElliotableController: UICollectionViewDataSource {
         
         if indexPath.row == 0 {
             cell.textLabel.text = ""
-        } else if indexPath.row < 8 {
+        } else if indexPath.row < (ellioTable.dayCount + 1) {
+            print("indexPath row : \(indexPath.row)")
             cell.textLabel.text = ellioTable.daySymbols[indexPath.row - 1]
-        } else if indexPath.row % 8 == 0 {
-            cell.textLabel.text = String(indexPath.row / 8)
+        } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
+            cell.textLabel.text = String(indexPath.row / (ellioTable.dayCount + 1))
         } else {
             cell.textLabel.text = ""
             cell.backgroundColor = UIColor.clear
@@ -103,9 +105,9 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         
         if indexPath.row == 0 {
             return CGSize(width: ellioTable.widthOfPeriodSymbol, height: ellioTable.heightOfDaySymbols)
-        } else if indexPath.row < 8 {
+        } else if indexPath.row < (ellioTable.dayCount + 1) {
             return CGSize(width: ellioTable.averageWidth, height: ellioTable.heightOfDaySymbols)
-        } else if indexPath.row % 8 == 0 {
+        } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
             return CGSize(width: ellioTable.widthOfPeriodSymbol, height: averageHeight)
         } else {
             return CGSize(width: ellioTable.averageWidth, height: averageHeight)
