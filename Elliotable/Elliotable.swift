@@ -13,6 +13,8 @@ public class Elliotable: UIView {
     private let controller     = ElliotableController()
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
+    public var userDaySymbol: [String]?
+    
     public var elliotDayOption = ElliotDayType.shortType {
         didSet {
             collectionView.reloadData()
@@ -38,6 +40,13 @@ public class Elliotable: UIView {
     
     // Item for Course
     public var courseItems = [ElliottEvent]() {
+        didSet {
+            makeTimeTable()
+        }
+    }
+    
+    // 요일 수
+    public var dayCount = 7 {
         didSet {
             makeTimeTable()
         }
@@ -88,58 +97,46 @@ public class Elliotable: UIView {
     
     public var cornerRadius = CGFloat(0) {
         didSet {
-            
+            makeTimeTable()
         }
     }
     
     public var rectEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
         didSet {
-            
+            makeTimeTable()
         }
     }
     
     public var textEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
         didSet {
-            
+            makeTimeTable()
         }
     }
     
     public var textFontSize = CGFloat(11) {
         didSet {
-            
+            makeTimeTable()
         }
     }
     
     public var textAlignment = NSTextAlignment.center {
         didSet {
-            
+            makeTimeTable()
         }
     }
     
     public var maximumNameLength = 0 {
         didSet {
-            
+            makeTimeTable()
         }
     }
     
     var daySymbols: [String] {
         var daySymbols = [String]()
-        
-        switch elliotDayOption {
-        case .normalType:
-            daySymbols = Calendar.current.standaloneWeekdaySymbols
-            break
-        case .shortType:
-            daySymbols = Calendar.current.shortStandaloneWeekdaySymbols
-            break
-        case .shortestType:
-            daySymbols = Calendar.current.veryShortStandaloneWeekdaySymbols
-            break
-        }
+        daySymbols = userDaySymbol ?? Calendar.current.shortStandaloneWeekdaySymbols
         
         let startIndex = startDay.rawValue - 1
         daySymbols.rotate(shiftingToStart: startIndex)
-        
         return daySymbols
     }
     
@@ -231,7 +228,7 @@ public class Elliotable: UIView {
             
             let width = averageWidth - rectEdgeInsets.left - rectEdgeInsets.right
             let height = averageHeight * CGFloat(courseEndHour - courseStartHour) +
-                CGFloat(CGFloat(courseEndMin - courseStartMin) * averageHeight) - rectEdgeInsets.top - rectEdgeInsets.bottom
+                CGFloat((CGFloat(courseEndMin - courseStartMin) / 60) * averageHeight) - rectEdgeInsets.top - rectEdgeInsets.bottom
             
             let view = UIView(frame: CGRect(x: x, y: y, width: width, height: height))
             view.backgroundColor = courseItem.backgroundColor
@@ -263,7 +260,7 @@ public class Elliotable: UIView {
     
     @objc func curriculumTapped(_ sender: UITapGestureRecognizer) {
         let course = courseItems[(sender.view as! UILabel).tag]
-        //course.tapHandler(course)
+        course.tapHandler(course)
     }
 }
 
