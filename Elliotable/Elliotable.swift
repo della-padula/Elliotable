@@ -15,14 +15,7 @@ public class Elliotable: UIView {
     
     public var userDaySymbol: [String]?
     
-    public var elliotDayOption = ElliotDayType.shortType {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
-    
     // Settable Options of Time Table View
-    
     public var startDay = ElliotDay.monday {
         didSet {
             collectionView.reloadData()
@@ -30,8 +23,20 @@ public class Elliotable: UIView {
         }
     }
     
+    public var courseItemTextColor = UIColor.white {
+        didSet {
+            makeTimeTable()
+        }
+    }
+    
+    public var weekDayTextColor = UIColor.black {
+        didSet {
+            makeTimeTable()
+        }
+    }
+    
     // Course Time Term Count
-    public var numberOfPeriods = 13 {
+    public var numberOfPeriods = 10 {
         didSet {
             collectionView.reloadData()
             makeTimeTable()
@@ -45,7 +50,7 @@ public class Elliotable: UIView {
         }
     }
     
-    // 요일 수
+    // 요일 수 : default value is 7
     public var dayCount = 7 {
         didSet {
             makeTimeTable()
@@ -64,20 +69,20 @@ public class Elliotable: UIView {
         }
     }
     
-    public var symbolFontSize = CGFloat(14) {
+    public var symbolFontSize = CGFloat(10) {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var heightOfDaySymbols = CGFloat(28) {
+    public var heightOfDaySection = CGFloat(28) {
         didSet {
             collectionView.reloadData()
             makeTimeTable()
         }
     }
     
-    public var widthOfPeriodSymbol = CGFloat(32) {
+    public var widthOfTimeAxis = CGFloat(32) {
         didSet {
             collectionView.reloadData()
         }
@@ -119,6 +124,12 @@ public class Elliotable: UIView {
         }
     }
     
+    public var roomNameFontSize = CGFloat(9) {
+        didSet {
+            makeTimeTable()
+        }
+    }
+    
     public var textAlignment = NSTextAlignment.center {
         didSet {
             makeTimeTable()
@@ -141,8 +152,10 @@ public class Elliotable: UIView {
         return daySymbols
     }
     
+    public var minimumCourseStartTime: Int?
+    
     var averageWidth: CGFloat {
-        return (collectionView.frame.width - widthOfPeriodSymbol) / CGFloat(daySymbols.count) - 0.1
+        return (collectionView.frame.width - widthOfTimeAxis) / CGFloat(daySymbols.count) - 0.1
     }
     
     public override init(frame: CGRect) {
@@ -204,6 +217,7 @@ public class Elliotable: UIView {
         }
         
         maxEndTimeHour += 1
+        minimumCourseStartTime = minStartTimeHour
         
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour
@@ -217,25 +231,20 @@ public class Elliotable: UIView {
             let courseEndHour = Int(courseItem.endTime.split(separator: ":")[0]) ?? 24
             let courseEndMin  = Int(courseItem.endTime.split(separator: ":")[1]) ?? 00
             
-            let averageHeight = (collectionView.frame.height - heightOfDaySymbols) / CGFloat(courseCount)
+            let averageHeight = (collectionView.frame.height - heightOfDaySection) / CGFloat(courseCount)
             
             // Cell X Position and Y Position
-            let x = widthOfPeriodSymbol + averageWidth * CGFloat(weekdayIndex) + rectEdgeInsets.left
+            let position_x = widthOfTimeAxis + averageWidth * CGFloat(weekdayIndex) + rectEdgeInsets.left
             
             // 요일 높이 + 평균 셀 높이 * 시간 차이 개수 + 분에 대한 추가 여백
-            let y = heightOfDaySymbols + averageHeight * CGFloat(courseStartHour - minStartTimeHour) +
+            let position_y = heightOfDaySection + averageHeight * CGFloat(courseStartHour - minStartTimeHour) +
                 CGFloat((CGFloat(courseStartMin) / 60) * averageHeight) + rectEdgeInsets.top
-            
-//            print("courseStartMin : \(courseStartMin)")
-//            print("Min Top Space : \(CGFloat((CGFloat(courseStartMin) / 60) * averageHeight))")
-            
-            print(averageWidth)
             
             let width = averageWidth - rectEdgeInsets.left - rectEdgeInsets.right
             let height = averageHeight * CGFloat(courseEndHour - courseStartHour) +
                 CGFloat((CGFloat(courseEndMin - courseStartMin) / 60) * averageHeight) - rectEdgeInsets.top - rectEdgeInsets.bottom
             
-            let view = UIView(frame: CGRect(x: x, y: y, width: width, height: height))
+            let view = UIView(frame: CGRect(x: position_x, y: position_y, width: width, height: height))
             view.backgroundColor = courseItem.backgroundColor
             view.layer.cornerRadius = cornerRadius
             view.layer.masksToBounds = true
@@ -247,11 +256,11 @@ public class Elliotable: UIView {
                 name.truncate(maximumNameLength)
             }
             
-            let attrStr = NSMutableAttributedString(string: name + "\n\n" + courseItem.roomName, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: textFontSize)])
+            let attrStr = NSMutableAttributedString(string: name + "\n\n" + courseItem.roomName, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: roomNameFontSize)])
             attrStr.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: textFontSize)], range: NSRange(0..<name.count))
             
             label.attributedText = attrStr
-            label.textColor = .white
+            label.textColor = courseItemTextColor
             label.textAlignment = textAlignment
             label.numberOfLines = 0
             label.tag = index
@@ -270,7 +279,6 @@ public class Elliotable: UIView {
 }
 
 extension Array {
-    
     func rotated(shiftingToStart middle: Index) -> Array {
         return Array(suffix(count - middle) + prefix(middle))
     }
@@ -278,11 +286,9 @@ extension Array {
     mutating func rotate(shiftingToStart middle: Index) {
         self = rotated(shiftingToStart: middle)
     }
-    
 }
 
 extension String {
-    
     func truncated(_ length: Int) -> String {
         let end = index(startIndex, offsetBy: length, limitedBy: endIndex) ?? endIndex
         return String(self[..<end])
@@ -291,5 +297,4 @@ extension String {
     mutating func truncate(_ length: Int) {
         self = truncated(length)
     }
-    
 }
