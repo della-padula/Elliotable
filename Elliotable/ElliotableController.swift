@@ -56,6 +56,7 @@ extension ElliotableController: UICollectionViewDataSource {
         cell.layer.borderWidth = ellioTable.borderWidth
         cell.layer.borderColor = ellioTable.borderColor.cgColor
         cell.textLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolFontSize)
+        cell.textLabel.textColor = ellioTable.weekDayTextColor
         
         if indexPath.row == 0 {
             cell.textLabel.text = ""
@@ -63,7 +64,8 @@ extension ElliotableController: UICollectionViewDataSource {
             print("indexPath row : \(indexPath.row)")
             cell.textLabel.text = ellioTable.daySymbols[indexPath.row - 1]
         } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
-            cell.textLabel.text = String(indexPath.row / (ellioTable.dayCount + 1))
+            //cell.textLabel.text = String(indexPath.row / (ellioTable.dayCount + 1))
+            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 8) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))시"
         } else {
             cell.textLabel.text = ""
             cell.backgroundColor = UIColor.clear
@@ -101,14 +103,14 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour
-        let averageHeight = (collectionView.frame.height - ellioTable.heightOfDaySymbols) / CGFloat(courseCount)
+        let averageHeight = (collectionView.frame.height - ellioTable.heightOfDaySection) / CGFloat(courseCount)
         
         if indexPath.row == 0 {
-            return CGSize(width: ellioTable.widthOfPeriodSymbol, height: ellioTable.heightOfDaySymbols)
+            return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.heightOfDaySection)
         } else if indexPath.row < (ellioTable.dayCount + 1) {
-            return CGSize(width: ellioTable.averageWidth, height: ellioTable.heightOfDaySymbols)
+            return CGSize(width: ellioTable.averageWidth, height: ellioTable.heightOfDaySection)
         } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
-            return CGSize(width: ellioTable.widthOfPeriodSymbol, height: averageHeight)
+            return CGSize(width: ellioTable.widthOfTimeAxis, height: averageHeight)
         } else {
             return CGSize(width: ellioTable.averageWidth, height: averageHeight)
         }
