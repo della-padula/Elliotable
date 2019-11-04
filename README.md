@@ -38,9 +38,9 @@ import Elliotable
 ```
 And then, create courses to add to the timetable.   
 ```swift
-let course_1 = ElliottEvent(courseId: "2150000000", courseName: "운영체제", roomName: "정보과학관 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
+let course_1 = ElliottEvent(courseId: "2150000000", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
 
-let course_2 = ElliottEvent(courseId: "2150000000", courseName: "운영체제", roomName: "정보과학관 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
+let course_2 = ElliottEvent(courseId: "2150000000", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
 ```
 Finally, define the properties of the timetable.   
 ```swift
