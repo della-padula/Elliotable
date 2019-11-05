@@ -23,6 +23,7 @@ pod "Elliotable"
 ## Usage   
 ### Course Item Structure   
 ```swift
+courseId : The identifier of the course   
 courseName : The name of the course
 roomName : The name of the lecture room
 courseDay : Weekday of the course
