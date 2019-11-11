@@ -6,7 +6,7 @@ If you only add a course, the course time is automatically calculated and added 
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
    
-[![Version](https://img.shields.io/badge/version-v0.7.0-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.0.1-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
@@ -46,18 +46,25 @@ let course_2 = ElliottEvent(courseId: "2150000000", courseName: "Operating Syste
 ```
 Finally, define the properties of the timetable.   
 ```swift
-elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, course_6, course_7, course_8, course_9, course_10]
-elliotable.userDaySymbol = daySymbol
-elliotable.dayCount = daySymbol.count
-elliotable.backgroundColor = .white
-elliotable.borderWidth = 0.5
-elliotable.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.9)
-elliotable.cornerRadius = 0
-elliotable.textEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-elliotable.maximumNameLength = 18
-        
-elliotable.textFontSize = 11
-elliotable.roomNameFontSize = 8
+elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, course_6, course_7, course_8, course_9, course_10]    
+elliotable.userDaySymbol = daySymbol // WeekDay Character : e.g) Mon, Tue, Wed, Thu etc.    
+elliotable.dayCount = daySymbol.count // The number of daySymbol    
+elliotable.backgroundColor = .white // Background Color of Elliotable    
+elliotable.borderWidth = 1 // Elliotable Border Width    
+elliotable.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0) // Elliotable Border Color    
+elliotable.hasRoundCorner = true // Course Item Round Option    
+elliotable.cornerRadius = 24 // Course Item Round Radius    
+elliotable.textEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3) // Text Inset of Course Item    
+elliotable.maximumNameLength = 18 // Max Length of Course Name length    
+elliotable.textAlignment = .right // Course Item Text Alignment    
+elliotable.isTextVerticalCenter = false // Course Item Text Vertical Alignment    
+elliotable.textFontSize = 12.5 // Course Name Font Size    
+elliotable.roomNameFontSize = 8 // Course Lecture Room Font Size    
+elliotable.symbolFontSize = 14 // WeekDay Font Size    
+elliotable.symbolTimeFontSize = 14 // Left Time Section Font Size    
+elliotable.symbolFontColor = UIColor(displayP3Red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0) // WeekDay Font Color    
+elliotable.symbolTimeFontColor = UIColor(displayP3Red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0) // Left Time Section Font Color    
+elliotable.symbolBackgroundColor = UIColor(displayP3Red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0) // Background Color of WeekDay Section and Left Time Section    
 ```
 
 On your storyboard, just add a "View" Component.     
