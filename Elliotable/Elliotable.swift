@@ -13,7 +13,12 @@ public class Elliotable: UIView {
     private let controller     = ElliotableController()
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    public var userDaySymbol: [String]?
+    public var userDaySymbol = Calendar.current.shortStandaloneWeekdaySymbols {
+        didSet {
+            collectionView.reloadData()
+            makeTimeTable()
+        }
+    }
     
     // Settable Options of Time Table View
     public var startDay = ElliotDay.monday {
@@ -57,7 +62,7 @@ public class Elliotable: UIView {
         }
     }
     
-    public var hasRoundCorner = true {
+    public var hasRoundCorner = false {
         didSet {
             makeTimeTable()
         }
@@ -126,60 +131,59 @@ public class Elliotable: UIView {
     
     public var cornerRadius = CGFloat(0) {
         didSet {
-            makeTimeTable()
+            self.makeTimeTable()
         }
     }
     
     public var rectEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
         didSet {
-            makeTimeTable()
+            self.makeTimeTable()
         }
     }
     
     public var textEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
         didSet {
-            makeTimeTable()
+            self.makeTimeTable()
         }
     }
     
     public var textFontSize = CGFloat(11) {
         didSet {
-            makeTimeTable()
+            self.makeTimeTable()
         }
     }
     
     public var roomNameFontSize = CGFloat(9) {
         didSet {
-            makeTimeTable()
+            self.makeTimeTable()
         }
     }
     
     public var textAlignment = NSTextAlignment.center {
         didSet {
-            makeTimeTable()
+            self.makeTimeTable()
         }
     }
     
     public var isTextVerticalCenter = true {
         didSet {
-            makeTimeTable()
+            self.makeTimeTable()
         }
     }
     
     public var maximumNameLength = 0 {
         didSet {
-            makeTimeTable()
+            self.makeTimeTable()
         }
     }
     
     public var daySymbols: [String] {
-        var daySymbols = [String]()
-        daySymbols = userDaySymbol ?? Calendar.current.shortStandaloneWeekdaySymbols
+        var daySymbolText = [String]()
+        daySymbolText = self.userDaySymbol ?? Calendar.current.shortStandaloneWeekdaySymbols
         
-        let startIndex = startDay.rawValue - 1
-        daySymbols.rotate(shiftingToStart: startIndex)
-        
-        return daySymbols
+        let startIndex = self.startDay.rawValue - 1
+        daySymbolText.rotate(shiftingToStart: startIndex)
+        return daySymbolText
     }
     
     public var minimumCourseStartTime: Int?
@@ -205,6 +209,7 @@ public class Elliotable: UIView {
         collectionView.dataSource = controller
         collectionView.delegate = controller
         collectionView.backgroundColor = backgroundColor
+        
         addSubview(collectionView)
         makeTimeTable()
     }
@@ -253,7 +258,7 @@ public class Elliotable: UIView {
         let courseCount = maxEndTimeHour - minStartTimeHour
         
         for (index, courseItem) in courseItems.enumerated() {
-            let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + daySymbols.count) % daySymbols.count
+            let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + self.daySymbols.count) % self.daySymbols.count
             
             let courseStartHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
             let courseStartMin  = Int(courseItem.startTime.split(separator: ":")[1]) ?? 00
@@ -274,19 +279,21 @@ public class Elliotable: UIView {
             let height = averageHeight * CGFloat(courseEndHour - courseStartHour) +
                 CGFloat((CGFloat(courseEndMin - courseStartMin) / 60) * averageHeight) - rectEdgeInsets.top - rectEdgeInsets.bottom
             
-            // If Round Option is off, set cornerRadius to Zero.
-            if !self.hasRoundCorner { self.cornerRadius = 0 }
-            
             let view = UIView(frame: CGRect(x: position_x, y: position_y, width: width, height: height))
             view.backgroundColor = courseItem.backgroundColor
             
-            // To Support under iOS 11
-            let path = UIBezierPath(roundedRect:view.bounds,
-                                    byRoundingCorners:[.topLeft, .bottomRight],
-                                    cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            view.layer.mask = maskLayer
+            if self.hasRoundCorner {
+                // To Support under iOS 11
+                let path = UIBezierPath(roundedRect:view.bounds,
+                                        byRoundingCorners:[.topLeft, .bottomRight],
+                                        cornerRadii: CGSize(width: self.cornerRadius, height: self.cornerRadius))
+                let maskLayer = CAShapeLayer()
+                maskLayer.path = path.cgPath
+                view.layer.mask = maskLayer
+            } else {
+                // If Round Option is off, set cornerRadius to Zero.
+                self.cornerRadius = 0
+            }
             
             let label = UILabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
             var name = courseItem.courseName
