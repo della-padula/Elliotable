@@ -282,7 +282,8 @@ public class Elliotable: UIView {
             view.layer.cornerRadius = cornerRadius
             // Bottom Right, Top Left
             view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMinYCorner]
-            view.layer.masksToBounds = true
+//            view.layer.masksToBounds = true
+            view.clipsToBounds = true
             
             let label = UILabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
             var name = courseItem.courseName
