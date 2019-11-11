@@ -21,6 +21,17 @@ pod "Elliotable"
 ```
 
 ## Usage   
+### Day Symbol Definition   
+```swift
+private let daySymbol = ["Mon", "Tue", "Wed", "Thu", "Fri"]   
+```
+### Item Click Handler Implementaion    
+```swift
+let handler = { (course: ElliottEvent) in   
+    print(course.courseName, course.courseDay)   
+}   
+```
+
 ### Course Item Structure   
 ```swift
 courseId : The identifier of the course   
@@ -87,3 +98,6 @@ elliotable.symbolBackgroundColor = UIColor(displayP3Red: 0.95, green: 0.95, blue
 
 On your storyboard, just add a "View" Component.     
 On the Inspector Frame, choose the View class to "Elliotable"   
+
+### Screenshot   
+
