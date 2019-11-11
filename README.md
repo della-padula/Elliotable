@@ -71,7 +71,7 @@ elliotable.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
 // Course Item Round Option    
 elliotable.hasRoundCorner = true    
 // Course Item Round Radius    
-elliotable.cornerRadius = 24    
+elliotable.borderCornerRadius = 24    
 // Text Inset of Course Item    
 elliotable.textEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)    
 // Max Length of Course Name length    
@@ -100,4 +100,4 @@ On your storyboard, just add a "View" Component.
 On the Inspector Frame, choose the View class to "Elliotable"   
 
 ### Screenshot   
-![screenshot](./screenshot.jpeg)   
+![screenshot](./screenshot.jpeg)![screenshot2](./screenshot2.jpeg)   
