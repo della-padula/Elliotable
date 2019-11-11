@@ -50,7 +50,7 @@ public class Elliotable: UIView {
         }
     }
     
-    // 요일 수 : default value is 7
+    // The number of weekdays : default value is 7
     public var dayCount = 7 {
         didSet {
             makeTimeTable()
@@ -274,7 +274,7 @@ public class Elliotable: UIView {
             let height = averageHeight * CGFloat(courseEndHour - courseStartHour) +
                 CGFloat((CGFloat(courseEndMin - courseStartMin) / 60) * averageHeight) - rectEdgeInsets.top - rectEdgeInsets.bottom
             
-            // Round 없으면 0으로 설정
+            // If Round Option is off, set cornerRadius to Zero.
             if !self.hasRoundCorner { self.cornerRadius = 0 }
             
             let view = UIView(frame: CGRect(x: position_x, y: position_y, width: width, height: height))

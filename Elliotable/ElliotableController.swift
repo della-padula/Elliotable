@@ -46,15 +46,13 @@ extension ElliotableController: UICollectionViewDataSource {
         
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour
-        // 7 = 6 + 1(좌측 열 1개)
+        // 7 = 6 + 1
         return (courseCount + 1) * (ellioTable.dayCount + 1)
     }
     
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ElliotableCell
         cell.backgroundColor = ellioTable.symbolBackgroundColor
-//        cell.layer.borderWidth = ellioTable.borderWidth
-//        cell.layer.borderColor = ellioTable.borderColor.cgColor
         cell.layer.addBorder(edge: UIRectEdge.bottom, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
         cell.textLabel.textColor = ellioTable.weekDayTextColor
         
@@ -64,7 +62,7 @@ extension ElliotableController: UICollectionViewDataSource {
         } else if indexPath.row < (ellioTable.dayCount + 1) {
             print("indexPath row : \(indexPath.row)")
             
-            // 마지막 요일은 오른쪽 보더 추가하지 않음
+            // Last Weekday doesn't have right-border.
             if indexPath.row < ellioTable.dayCount {
                 cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
             }
@@ -77,7 +75,6 @@ extension ElliotableController: UICollectionViewDataSource {
             
             //인덱스 - 교시로 표시하는 부분이지만 주석 처리 (시간으로 보여줄 것이므로)
 //            cell.textLabel.text = String(indexPath.row / (ellioTable.dayCount + 1))
-//            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 8) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))시"
             cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 8) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))"
             // Top Right
             cell.textLabel.textAlignment = .right
