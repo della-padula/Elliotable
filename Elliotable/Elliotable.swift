@@ -279,9 +279,8 @@ public class Elliotable: UIView {
             
             let view = UIView(frame: CGRect(x: position_x, y: position_y, width: width, height: height))
             view.backgroundColor = courseItem.backgroundColor
-            // To Support under iOS 11
-            // view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMinYCorner]
             
+            // To Support under iOS 11
             let path = UIBezierPath(roundedRect:view.bounds,
                                     byRoundingCorners:[.topLeft, .bottomRight],
                                     cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
