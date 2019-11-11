@@ -47,24 +47,42 @@ let course_2 = ElliottEvent(courseId: "2150000000", courseName: "Operating Syste
 Finally, define the properties of the timetable.   
 ```swift
 elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, course_6, course_7, course_8, course_9, course_10]    
-elliotable.userDaySymbol = daySymbol // WeekDay Character : e.g) Mon, Tue, Wed, Thu etc.    
-elliotable.dayCount = daySymbol.count // The number of daySymbol    
-elliotable.backgroundColor = .white // Background Color of Elliotable    
-elliotable.borderWidth = 1 // Elliotable Border Width    
-elliotable.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0) // Elliotable Border Color    
-elliotable.hasRoundCorner = true // Course Item Round Option    
-elliotable.cornerRadius = 24 // Course Item Round Radius    
-elliotable.textEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3) // Text Inset of Course Item    
-elliotable.maximumNameLength = 18 // Max Length of Course Name length    
-elliotable.textAlignment = .right // Course Item Text Alignment    
-elliotable.isTextVerticalCenter = false // Course Item Text Vertical Alignment    
-elliotable.textFontSize = 12.5 // Course Name Font Size    
-elliotable.roomNameFontSize = 8 // Course Lecture Room Font Size    
-elliotable.symbolFontSize = 14 // WeekDay Font Size    
-elliotable.symbolTimeFontSize = 14 // Left Time Section Font Size    
-elliotable.symbolFontColor = UIColor(displayP3Red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0) // WeekDay Font Color    
-elliotable.symbolTimeFontColor = UIColor(displayP3Red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0) // Left Time Section Font Color    
-elliotable.symbolBackgroundColor = UIColor(displayP3Red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0) // Background Color of WeekDay Section and Left Time Section    
+// WeekDay Character : e.g) Mon, Tue, Wed, Thu etc.    
+elliotable.userDaySymbol = daySymbol    
+// The number of daySymbol    
+elliotable.dayCount = daySymbol.count    
+// Background Color of Elliotable    
+elliotable.backgroundColor = .white    
+// Elliotable Border Width    
+elliotable.borderWidth = 1    
+// Elliotable Border Color    
+elliotable.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)    
+// Course Item Round Option    
+elliotable.hasRoundCorner = true    
+// Course Item Round Radius    
+elliotable.cornerRadius = 24    
+// Text Inset of Course Item    
+elliotable.textEdgeInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)    
+// Max Length of Course Name length    
+elliotable.maximumNameLength = 18    
+// Course Item Text Alignment    
+elliotable.textAlignment = .right    
+// Course Item Text Vertical Alignment    
+elliotable.isTextVerticalCenter = false    
+// Course Name Font Size    
+elliotable.textFontSize = 12.5    
+// Course Lecture Room Font Size    
+elliotable.roomNameFontSize = 8   
+// WeekDay Font Size    
+elliotable.symbolFontSize = 14    
+// Left Time Section Font Size    
+elliotable.symbolTimeFontSize = 14    
+// WeekDay Font Color    
+elliotable.symbolFontColor = UIColor(displayP3Red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0)    
+// Left Time Section Font Color 
+elliotable.symbolTimeFontColor = UIColor(displayP3Red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0)    
+// Background Color of WeekDay Section and Left Time Section    
+elliotable.symbolBackgroundColor = UIColor(displayP3Red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0)    
 ```
 
 On your storyboard, just add a "View" Component.     
