@@ -281,9 +281,10 @@ public class Elliotable: UIView {
             view.backgroundColor = courseItem.backgroundColor
             view.layer.cornerRadius = cornerRadius
             // Bottom Right, Top Left
-            view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMinYCorner]
-//            view.layer.masksToBounds = true
-            view.clipsToBounds = true
+//            view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMinYCorner]
+            view.roundCorners([.layerMaxXMaxYCorner, .layerMinXMinYCorner], radius: cornerRadius)
+            view.layer.masksToBounds = true
+//            view.clipsToBounds = true
             
             let label = UILabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
             var name = courseItem.courseName
@@ -337,5 +338,32 @@ extension String {
     
     mutating func truncate(_ length: Int) {
         self = truncated(length)
+    }
+}
+
+extension UIView {
+    func roundCorners(_ corners: CACornerMask, radius: CGFloat) {
+        if #available(iOS 11, *) {
+            self.layer.cornerRadius = radius
+            self.layer.maskedCorners = corners
+        } else {
+            var cornerMask = UIRectCorner()
+            if(corners.contains(.layerMinXMinYCorner)){
+                cornerMask.insert(.topLeft)
+            }
+            if(corners.contains(.layerMaxXMinYCorner)){
+                cornerMask.insert(.topRight)
+            }
+            if(corners.contains(.layerMinXMaxYCorner)){
+                cornerMask.insert(.bottomLeft)
+            }
+            if(corners.contains(.layerMaxXMaxYCorner)){
+                cornerMask.insert(.bottomRight)
+            }
+            let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: cornerMask, cornerRadii: CGSize(width: radius, height: radius))
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+            self.layer.mask = mask
+        }
     }
 }
