@@ -100,4 +100,4 @@ On your storyboard, just add a "View" Component.
 On the Inspector Frame, choose the View class to "Elliotable"   
 
 ### Screenshot   
-![screenshot](./screenshot.jpeg)![screenshot2](./screenshot2.jpeg)   
+![screenshot](./screenshot.jpeg){: width="50%" height="50%"} ![screenshot](./screenshot2.jpeg){: width="50%" height="50%"}   
