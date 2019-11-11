@@ -84,7 +84,7 @@ extension ElliotableController: UICollectionViewDataSource {
         } else {
             cell.textLabel.text = ""
             cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-            cell.backgroundColor = UIColor.clear
+            cell.backgroundColor = ellioTable.backgroundColor
         }
         return cell
     }
