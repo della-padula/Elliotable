@@ -57,6 +57,12 @@ public class Elliotable: UIView {
         }
     }
     
+    public var hasRoundCorner = true {
+        didSet {
+            makeTimeTable()
+        }
+    }
+    
     public var elliotBackgroundColor = UIColor.clear {
         didSet {
             collectionView.backgroundColor = backgroundColor
@@ -70,6 +76,24 @@ public class Elliotable: UIView {
     }
     
     public var symbolFontSize = CGFloat(10) {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    public var symbolTimeFontSize = CGFloat(10) {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    public var symbolFontColor = UIColor.black {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    public var symbolTimeFontColor = UIColor.black {
         didSet {
             collectionView.reloadData()
         }
@@ -131,6 +155,12 @@ public class Elliotable: UIView {
     }
     
     public var textAlignment = NSTextAlignment.center {
+        didSet {
+            makeTimeTable()
+        }
+    }
+    
+    public var isTextVerticalCenter = true {
         didSet {
             makeTimeTable()
         }
@@ -244,9 +274,14 @@ public class Elliotable: UIView {
             let height = averageHeight * CGFloat(courseEndHour - courseStartHour) +
                 CGFloat((CGFloat(courseEndMin - courseStartMin) / 60) * averageHeight) - rectEdgeInsets.top - rectEdgeInsets.bottom
             
+            // Round 없으면 0으로 설정
+            if !self.hasRoundCorner { self.cornerRadius = 0 }
+            
             let view = UIView(frame: CGRect(x: position_x, y: position_y, width: width, height: height))
             view.backgroundColor = courseItem.backgroundColor
             view.layer.cornerRadius = cornerRadius
+            // Bottom Right, Top Left
+            view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMinYCorner]
             view.layer.masksToBounds = true
             
             let label = UILabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
@@ -256,7 +291,7 @@ public class Elliotable: UIView {
                 name.truncate(maximumNameLength)
             }
             
-            let attrStr = NSMutableAttributedString(string: name + "\n\n" + courseItem.roomName, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: roomNameFontSize)])
+            let attrStr = NSMutableAttributedString(string: name + "\n" + courseItem.roomName, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: roomNameFontSize)])
             attrStr.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: textFontSize)], range: NSRange(0..<name.count))
             
             label.attributedText = attrStr
@@ -264,6 +299,11 @@ public class Elliotable: UIView {
             label.textAlignment = textAlignment
             label.numberOfLines = 0
             label.tag = index
+            
+            if !self.isTextVerticalCenter {
+                label.sizeToFit()
+            }
+            
             label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(curriculumTapped)))
             label.isUserInteractionEnabled = true
             

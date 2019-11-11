@@ -53,21 +53,40 @@ extension ElliotableController: UICollectionViewDataSource {
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ElliotableCell
         cell.backgroundColor = ellioTable.symbolBackgroundColor
-        cell.layer.borderWidth = ellioTable.borderWidth
-        cell.layer.borderColor = ellioTable.borderColor.cgColor
-        cell.textLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolFontSize)
+//        cell.layer.borderWidth = ellioTable.borderWidth
+//        cell.layer.borderColor = ellioTable.borderColor.cgColor
+        cell.layer.addBorder(edge: UIRectEdge.bottom, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
         cell.textLabel.textColor = ellioTable.weekDayTextColor
         
         if indexPath.row == 0 {
             cell.textLabel.text = ""
+            cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
         } else if indexPath.row < (ellioTable.dayCount + 1) {
             print("indexPath row : \(indexPath.row)")
+            
+            // 마지막 요일은 오른쪽 보더 추가하지 않음
+            if indexPath.row < ellioTable.dayCount {
+                cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
+            }
             cell.textLabel.text = ellioTable.daySymbols[indexPath.row - 1]
+            cell.textLabel.textAlignment = .center
+            cell.textLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolFontSize)
+            cell.textLabel.textColor = ellioTable.symbolFontColor
         } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
-            //cell.textLabel.text = String(indexPath.row / (ellioTable.dayCount + 1))
-            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 8) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))시"
+            cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
+            
+            //인덱스 - 교시로 표시하는 부분이지만 주석 처리 (시간으로 보여줄 것이므로)
+//            cell.textLabel.text = String(indexPath.row / (ellioTable.dayCount + 1))
+//            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 8) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))시"
+            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 8) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))"
+            // Top Right
+            cell.textLabel.textAlignment = .right
+            cell.textLabel.sizeToFit()
+            cell.textLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolTimeFontSize)
+            cell.textLabel.textColor = ellioTable.symbolTimeFontColor
         } else {
             cell.textLabel.text = ""
+            cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
             cell.backgroundColor = UIColor.clear
         }
         return cell
@@ -124,4 +143,34 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         return 0
     }
     
+}
+
+extension CALayer {
+
+    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+
+        let border = CALayer()
+
+        switch edge {
+        case UIRectEdge.top:
+            border.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: thickness)
+            break
+        case UIRectEdge.bottom:
+            border.frame = CGRect(x: 0, y: self.frame.height - thickness, width: self.frame.width, height: thickness)
+            break
+        case UIRectEdge.left:
+            border.frame = CGRect(x: 0, y: 0, width: thickness, height: self.frame.height)
+            break
+        case UIRectEdge.right:
+            border.frame = CGRect(x: self.frame.width - thickness, y: 0, width: thickness, height: self.frame.height)
+            break
+        default:
+            break
+        }
+
+        border.backgroundColor = color.cgColor;
+
+        self.addSublayer(border)
+    }
+
 }

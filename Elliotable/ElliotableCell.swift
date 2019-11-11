@@ -15,7 +15,7 @@ class ElliotableCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        textLabel.textAlignment = .center
+        textLabel.textAlignment = .right
         addSubview(textLabel)
     }
     
