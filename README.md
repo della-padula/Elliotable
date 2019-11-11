@@ -100,7 +100,7 @@ On your storyboard, just add a "View" Component.
 On the Inspector Frame, choose the View class to "Elliotable"   
 
 ### Screenshot   
-**Rounded Corner TimeTable**   
+#### Rounded Corner TimeTable   
 ![screenshot](./screenshot.jpeg)   
-**Non-Rounded Corner TimeTable**   
+#### Non-Rounded Corner TimeTable   
 ![screenshot](./screenshot2.jpeg)
