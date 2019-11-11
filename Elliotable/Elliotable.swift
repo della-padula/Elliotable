@@ -13,12 +13,7 @@ public class Elliotable: UIView {
     private let controller     = ElliotableController()
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    public var userDaySymbol = Calendar.current.shortStandaloneWeekdaySymbols {
-        didSet {
-            collectionView.reloadData()
-            makeTimeTable()
-        }
-    }
+    public var userDaySymbol: [String]?
     
     // Settable Options of Time Table View
     public var startDay = ElliotDay.monday {
@@ -129,7 +124,7 @@ public class Elliotable: UIView {
         }
     }
     
-    public var cornerRadius = CGFloat(0) {
+    public var borderCornerRadius = CGFloat(0) {
         didSet {
             self.makeTimeTable()
         }
@@ -286,13 +281,13 @@ public class Elliotable: UIView {
                 // To Support under iOS 11
                 let path = UIBezierPath(roundedRect:view.bounds,
                                         byRoundingCorners:[.topLeft, .bottomRight],
-                                        cornerRadii: CGSize(width: self.cornerRadius, height: self.cornerRadius))
+                                        cornerRadii: CGSize(width: self.borderCornerRadius, height: self.borderCornerRadius))
                 let maskLayer = CAShapeLayer()
                 maskLayer.path = path.cgPath
                 view.layer.mask = maskLayer
             } else {
                 // If Round Option is off, set cornerRadius to Zero.
-                self.cornerRadius = 0
+                view.layer.cornerRadius = 0
             }
             
             let label = UILabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
