@@ -17,7 +17,7 @@ Author : Elliott Kim / Seoul, South Korea
 ### Cocoapods
 Elliotable is available through CocoaPods, to install it simply add the following line to your Podfile:   
 ```ruby
-pod "Elliotable"
+pod 'Elliotable'
 ```
 
 ## Usage   
