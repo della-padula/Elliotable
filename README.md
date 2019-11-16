@@ -95,6 +95,6 @@ elliotable.symbolBackgroundColor = UIColor(named: "main_bg") ?? .white
 
 ### Screenshot   
 #### Rounded Corner TimeTable   
-![screenshot](./screenshot.jpeg)   
+![screenshot](./screenshot_1.jpeg)   
 #### Non-Rounded Corner TimeTable   
-![screenshot](./screenshot2.jpeg)
+![screenshot](./screenshot_2.jpeg)
