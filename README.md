@@ -6,7 +6,7 @@ If you only add a course, the course time is automatically calculated and added 
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
    
-[![Version](https://img.shields.io/badge/version-v1.0.4-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.0.6-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
@@ -46,6 +46,13 @@ tapHandler : on Touch Event Listener for each course item.
 ```
 
 ### How to use   
+On your storyboard, just add a "View" Component.     
+On the Inspector Frame, choose the View class to "Elliotable"   
+![screenshot](./screenshot3.jpeg)   
+This is screenshot how to bind the view into swift file.   
+![screenshot](./screenshot4.jpeg)   
+
+
 First, import my library by adding line below.   
 ```swift
 import Elliotable
@@ -85,8 +92,6 @@ elliotable.symbolTimeFontColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.
 elliotable.symbolBackgroundColor = UIColor(named: "main_bg") ?? .white  
 ```
 
-On your storyboard, just add a "View" Component.     
-On the Inspector Frame, choose the View class to "Elliotable"   
 
 ### Screenshot   
 #### Rounded Corner TimeTable   
