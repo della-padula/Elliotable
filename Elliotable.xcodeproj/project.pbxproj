@@ -10,7 +10,6 @@
 		DE107B8B236D1080002998E5 /* Elliotable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE107B89236D1080002998E5 /* Elliotable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE107B92236D10CD002998E5 /* Elliotable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE107B91236D10CD002998E5 /* Elliotable.swift */; };
 		DE107B9A236D1291002998E5 /* ElliottEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE107B99236D1291002998E5 /* ElliottEvent.swift */; };
-		DE107B9C236D17CC002998E5 /* ElliotableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE107B9B236D17CC002998E5 /* ElliotableView.swift */; };
 		DEC9E09C236E5C19000F5908 /* ElliotDayOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC9E09B236E5C19000F5908 /* ElliotDayOption.swift */; };
 		DEC9E09E236E5CDB000F5908 /* ElliotableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC9E09D236E5CDB000F5908 /* ElliotableCell.swift */; };
 		DEC9E0A0236E6D18000F5908 /* ElliotableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC9E09F236E6D18000F5908 /* ElliotableController.swift */; };
@@ -22,7 +21,6 @@
 		DE107B8A236D1080002998E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE107B91236D10CD002998E5 /* Elliotable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elliotable.swift; sourceTree = "<group>"; };
 		DE107B99236D1291002998E5 /* ElliottEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliottEvent.swift; sourceTree = "<group>"; };
-		DE107B9B236D17CC002998E5 /* ElliotableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliotableView.swift; sourceTree = "<group>"; };
 		DEC9E09B236E5C19000F5908 /* ElliotDayOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliotDayOption.swift; sourceTree = "<group>"; };
 		DEC9E09D236E5CDB000F5908 /* ElliotableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliotableCell.swift; sourceTree = "<group>"; };
 		DEC9E09F236E6D18000F5908 /* ElliotableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliotableController.swift; sourceTree = "<group>"; };
@@ -62,7 +60,6 @@
 				DE107B8A236D1080002998E5 /* Info.plist */,
 				DE107B91236D10CD002998E5 /* Elliotable.swift */,
 				DE107B99236D1291002998E5 /* ElliottEvent.swift */,
-				DE107B9B236D17CC002998E5 /* ElliotableView.swift */,
 				DEC9E09B236E5C19000F5908 /* ElliotDayOption.swift */,
 				DEC9E09D236E5CDB000F5908 /* ElliotableCell.swift */,
 				DEC9E09F236E6D18000F5908 /* ElliotableController.swift */,
@@ -150,7 +147,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE107B9C236D17CC002998E5 /* ElliotableView.swift in Sources */,
 				DE107B9A236D1291002998E5 /* ElliottEvent.swift in Sources */,
 				DEC9E0A0236E6D18000F5908 /* ElliotableController.swift in Sources */,
 				DEC9E09E236E5CDB000F5908 /* ElliotableCell.swift in Sources */,

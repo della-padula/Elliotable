@@ -53,6 +53,7 @@ extension ElliotableController: UICollectionViewDataSource {
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour
         // 7 = 6 + 1
+        print("item count : \((courseCount + 1) * (ellioTable.daySymbols.count + 1))")
         return (courseCount + 1) * (ellioTable.daySymbols.count + 1)
     }
     
@@ -64,19 +65,24 @@ extension ElliotableController: UICollectionViewDataSource {
         
         if indexPath.row == 0 {
             cell.textLabel.text = ""
+            cell.setNeedsDisplay()
             cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-        } else if indexPath.row < (ellioTable.daySymbols.count + 1) {
-            if indexPath.row < ellioTable.daySymbols.count {
+            
+        } else if indexPath.row < (ellioTable.dayCount + 1) {
+            if indexPath.row < ellioTable.dayCount {
                 cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
             }
+            cell.setNeedsDisplay()
             cell.textLabel.text = ellioTable.daySymbols[indexPath.row - 1]
             cell.textLabel.textAlignment = .center
             cell.textLabel.font = UIFont.boldSystemFont(ofSize: ellioTable.symbolFontSize)
             cell.textLabel.textColor = ellioTable.symbolFontColor
-        } else if indexPath.row % (ellioTable.daySymbols.count + 1) == 0 {
+            
+        } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
             cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-            print(ellioTable.minimumCourseStartTime)
-            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 9) - 1 + (indexPath.row / (ellioTable.daySymbols.count + 1)))"
+            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 9) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))"
+            cell.setNeedsDisplay()
+            
             // Top Right
             cell.textLabel.textAlignment = .right
             cell.textLabel.topInset = -40.0
@@ -86,10 +92,12 @@ extension ElliotableController: UICollectionViewDataSource {
             
             cell.textLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolTimeFontSize)
             cell.textLabel.textColor = ellioTable.symbolTimeFontColor
+            
         } else {
             cell.textLabel.text = ""
+            cell.setNeedsDisplay()
             cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-            cell.backgroundColor = ellioTable.backgroundColor
+            cell.backgroundColor = ellioTable.elliotBackgroundColor
         }
         return cell
     }
@@ -128,18 +136,18 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         }
         
         // The number of rows in timetable
-        let courseCount = maxEndTimeHour - minStartTimeHour
-        let averageHeight = (collectionView.frame.height - ellioTable.heightOfDaySection) / CGFloat(courseCount)
-        
+//        let courseCount = maxEndTimeHour - minStartTimeHour
+//        let averageHeight = (collectionView.frame.height - ellioTable.heightOfDaySection) / CGFloat(courseCount)
+
         if indexPath.row == 0 {
             return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.heightOfDaySection)
-        } else if indexPath.row < (ellioTable.daySymbols.count + 1) {
+        } else if indexPath.row < (ellioTable.dayCount + 1) {
             return CGSize(width: ellioTable.averageWidth, height: ellioTable.heightOfDaySection)
-        } else if indexPath.row % (ellioTable.daySymbols.count + 1) == 0 {
-//            return CGSize(width: ellioTable.widthOfTimeAxis, height: averageHeight)
+        } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
+            //            return CGSize(width: ellioTable.widthOfTimeAxis, height: averageHeight)
             return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.defaultMinHeightItem)
         } else {
-//            return CGSize(width: ellioTable.averageWidth, height: averageHeight)
+            //            return CGSize(width: ellioTable.averageWidth, height: averageHeight)
             return CGSize(width: ellioTable.averageWidth, height: ellioTable.defaultMinHeightItem)
         }
     }
@@ -150,6 +158,10 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Selected : \(indexPath.row)")
     }
     
 }
