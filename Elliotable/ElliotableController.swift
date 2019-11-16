@@ -60,25 +60,23 @@ extension ElliotableController: UICollectionViewDataSource {
             cell.textLabel.text = ""
             cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
         } else if indexPath.row < (ellioTable.dayCount + 1) {
-            print("indexPath row : \(indexPath.row)")
-            
-            // Last Weekday doesn't have right-border.
             if indexPath.row < ellioTable.dayCount {
                 cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
             }
             cell.textLabel.text = ellioTable.daySymbols[indexPath.row - 1]
             cell.textLabel.textAlignment = .center
-            cell.textLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolFontSize)
+            cell.textLabel.font = UIFont.boldSystemFont(ofSize: ellioTable.symbolFontSize)
             cell.textLabel.textColor = ellioTable.symbolFontColor
         } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
             cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-            
-            //인덱스 - 교시로 표시하는 부분이지만 주석 처리 (시간으로 보여줄 것이므로)
-//            cell.textLabel.text = String(indexPath.row / (ellioTable.dayCount + 1))
             cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 8) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))"
             // Top Right
             cell.textLabel.textAlignment = .right
+            cell.textLabel.topInset = -50.0
+            cell.textLabel.leftInset = -3.0
+            cell.textLabel.rightInset = 3.0
             cell.textLabel.sizeToFit()
+            
             cell.textLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolTimeFontSize)
             cell.textLabel.textColor = ellioTable.symbolTimeFontColor
         } else {
