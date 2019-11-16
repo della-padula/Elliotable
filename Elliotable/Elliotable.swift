@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class Elliotable: UIView {
+@IBDesignable public class Elliotable: UIView {
     private let controller     = ElliotableController()
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
