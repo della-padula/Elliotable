@@ -136,9 +136,9 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         }
         
         // The number of rows in timetable
-        let courseCount = maxEndTimeHour - minStartTimeHour
-        //        let averageHeight = (collectionView.frame.height - ellioTable.heightOfDaySection) / CGFloat(courseCount)
-        
+//        let courseCount = maxEndTimeHour - minStartTimeHour
+//        let averageHeight = (collectionView.frame.height - ellioTable.heightOfDaySection) / CGFloat(courseCount)
+
         if indexPath.row == 0 {
             return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.heightOfDaySection)
         } else if indexPath.row < (ellioTable.dayCount + 1) {
