@@ -163,12 +163,6 @@ import UIKit
         return daySymbolText
     }
     
-    public var dayCount = 0 {
-        didSet {
-            makeTimeTable()
-        }
-    }
-    
     public var minimumCourseStartTime: Int?
     
     var averageWidth: CGFloat {
