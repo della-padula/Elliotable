@@ -10,8 +10,6 @@
 		DE107B8B236D1080002998E5 /* Elliotable.h in Headers */ = {isa = PBXBuildFile; fileRef = DE107B89236D1080002998E5 /* Elliotable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE107B92236D10CD002998E5 /* Elliotable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE107B91236D10CD002998E5 /* Elliotable.swift */; };
 		DE107B9A236D1291002998E5 /* ElliottEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE107B99236D1291002998E5 /* ElliottEvent.swift */; };
-		DE107B9C236D17CC002998E5 /* ElliotableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE107B9B236D17CC002998E5 /* ElliotableView.swift */; };
-		DE107B9E236D1902002998E5 /* DayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE107B9D236D1902002998E5 /* DayTextView.swift */; };
 		DEC9E09C236E5C19000F5908 /* ElliotDayOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC9E09B236E5C19000F5908 /* ElliotDayOption.swift */; };
 		DEC9E09E236E5CDB000F5908 /* ElliotableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC9E09D236E5CDB000F5908 /* ElliotableCell.swift */; };
 		DEC9E0A0236E6D18000F5908 /* ElliotableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC9E09F236E6D18000F5908 /* ElliotableController.swift */; };
@@ -23,8 +21,6 @@
 		DE107B8A236D1080002998E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE107B91236D10CD002998E5 /* Elliotable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elliotable.swift; sourceTree = "<group>"; };
 		DE107B99236D1291002998E5 /* ElliottEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliottEvent.swift; sourceTree = "<group>"; };
-		DE107B9B236D17CC002998E5 /* ElliotableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliotableView.swift; sourceTree = "<group>"; };
-		DE107B9D236D1902002998E5 /* DayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTextView.swift; sourceTree = "<group>"; };
 		DEC9E09B236E5C19000F5908 /* ElliotDayOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliotDayOption.swift; sourceTree = "<group>"; };
 		DEC9E09D236E5CDB000F5908 /* ElliotableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliotableCell.swift; sourceTree = "<group>"; };
 		DEC9E09F236E6D18000F5908 /* ElliotableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElliotableController.swift; sourceTree = "<group>"; };
@@ -64,8 +60,6 @@
 				DE107B8A236D1080002998E5 /* Info.plist */,
 				DE107B91236D10CD002998E5 /* Elliotable.swift */,
 				DE107B99236D1291002998E5 /* ElliottEvent.swift */,
-				DE107B9B236D17CC002998E5 /* ElliotableView.swift */,
-				DE107B9D236D1902002998E5 /* DayTextView.swift */,
 				DEC9E09B236E5C19000F5908 /* ElliotDayOption.swift */,
 				DEC9E09D236E5CDB000F5908 /* ElliotableCell.swift */,
 				DEC9E09F236E6D18000F5908 /* ElliotableController.swift */,
@@ -153,11 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE107B9C236D17CC002998E5 /* ElliotableView.swift in Sources */,
 				DE107B9A236D1291002998E5 /* ElliottEvent.swift in Sources */,
 				DEC9E0A0236E6D18000F5908 /* ElliotableController.swift in Sources */,
 				DEC9E09E236E5CDB000F5908 /* ElliotableCell.swift in Sources */,
-				DE107B9E236D1902002998E5 /* DayTextView.swift in Sources */,
 				DEC9E09C236E5C19000F5908 /* ElliotDayOption.swift in Sources */,
 				DE107B92236D10CD002998E5 /* Elliotable.swift in Sources */,
 			);
@@ -217,13 +209,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -274,12 +267,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -307,7 +301,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -332,7 +325,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.elliott.Elliotable;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
