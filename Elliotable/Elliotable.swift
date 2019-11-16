@@ -14,15 +14,21 @@ import UIKit
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     public let defaultMinHour: Int = 9
-    public let defaultMaxEnd : Int = 22
+    public let defaultMaxEnd : Int = 17
     public let defaultMinHeightItem : CGFloat = 60.0
     
     public var userDaySymbol: [String]?
     
+    public enum roundOption: Int {
+        case none  = 0
+        case left  = 1
+        case right = 2
+        case all   = 3
+    }
+    
     // Settable Options of Time Table View
     public var startDay = ElliotDay.monday {
         didSet {
-            collectionView.reloadData()
             makeTimeTable()
         }
     }
@@ -40,7 +46,7 @@ import UIKit
         }
     }
     
-    @IBInspectable public var hasRoundCorner = false {
+    public var roundCorner: roundOption = roundOption.none {
         didSet {
             makeTimeTable()
         }
@@ -54,56 +60,55 @@ import UIKit
     
     @IBInspectable public var symbolBackgroundColor = UIColor.clear {
         didSet {
-            collectionView.reloadData()
+            makeTimeTable()
         }
     }
     
     @IBInspectable public var symbolFontSize = CGFloat(10) {
         didSet {
-            collectionView.reloadData()
+            makeTimeTable()
         }
     }
     
     @IBInspectable public var symbolTimeFontSize = CGFloat(10) {
         didSet {
-            collectionView.reloadData()
+            makeTimeTable()
         }
     }
     
     @IBInspectable public var symbolFontColor = UIColor.black {
         didSet {
-            collectionView.reloadData()
+            makeTimeTable()
         }
     }
     
     @IBInspectable public var symbolTimeFontColor = UIColor.black {
         didSet {
-            collectionView.reloadData()
+            makeTimeTable()
         }
     }
     
     @IBInspectable public var heightOfDaySection = CGFloat(28) {
         didSet {
-            collectionView.reloadData()
             makeTimeTable()
         }
     }
     
     @IBInspectable public var widthOfTimeAxis = CGFloat(32) {
         didSet {
-            collectionView.reloadData()
+            makeTimeTable()
         }
     }
     
     @IBInspectable public var borderWidth = CGFloat(0) {
         didSet {
-            collectionView.reloadData()
+            makeTimeTable()
         }
     }
     
     @IBInspectable public var borderColor = UIColor.clear {
         didSet {
-            collectionView.reloadData()
+            makeTimeTable()
         }
     }
     
@@ -137,7 +142,7 @@ import UIKit
         }
     }
     
-    @IBInspectable public var textAlignment = NSTextAlignment.center {
+    @IBInspectable public var courseTextAlignment = NSTextAlignment.center {
         didSet {
             self.makeTimeTable()
         }
@@ -156,6 +161,12 @@ import UIKit
         let startIndex = self.startDay.rawValue - 1
         daySymbolText.rotate(shiftingToStart: startIndex)
         return daySymbolText
+    }
+    
+    public var dayCount = 0 {
+        didSet {
+            makeTimeTable()
+        }
     }
     
     public var minimumCourseStartTime: Int?
@@ -190,7 +201,7 @@ import UIKit
         super.layoutSubviews()
         
         collectionView.frame = bounds
-        collectionView.reloadData()
+        //        collectionView.reloadData()
         makeTimeTable()
     }
     
@@ -255,16 +266,35 @@ import UIKit
             let view = UIView(frame: CGRect(x: position_x, y: position_y, width: width, height: height))
             view.backgroundColor = courseItem.backgroundColor
             
-            if self.hasRoundCorner {
-                // To Support under iOS 11
+            switch(self.roundCorner) {
+            case roundOption.none:
+                view.layer.cornerRadius = 0
+                break
+            case roundOption.left:
                 let path = UIBezierPath(roundedRect:view.bounds,
                                         byRoundingCorners:[.topLeft, .bottomRight],
                                         cornerRadii: CGSize(width: self.borderCornerRadius, height: self.borderCornerRadius))
                 let maskLayer = CAShapeLayer()
                 maskLayer.path = path.cgPath
                 view.layer.mask = maskLayer
-            } else {
-                view.layer.cornerRadius = 0
+                break
+            case roundOption.right:
+                let path = UIBezierPath(roundedRect:view.bounds,
+                                        byRoundingCorners:[.topRight, .bottomLeft],
+                                        cornerRadii: CGSize(width: self.borderCornerRadius, height: self.borderCornerRadius))
+                let maskLayer = CAShapeLayer()
+                maskLayer.path = path.cgPath
+                view.layer.mask = maskLayer
+                break
+            case roundOption.all:
+                // To Support under iOS 11
+                let path = UIBezierPath(roundedRect:view.bounds,
+                                        byRoundingCorners:[.topRight, .topLeft, .bottomLeft, .bottomRight],
+                                        cornerRadii: CGSize(width: self.borderCornerRadius, height: self.borderCornerRadius))
+                let maskLayer = CAShapeLayer()
+                maskLayer.path = path.cgPath
+                view.layer.mask = maskLayer
+                break
             }
             
             let label = PaddingLabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
@@ -279,11 +309,19 @@ import UIKit
             
             label.attributedText = attrStr
             label.textColor = courseItem.textColor ?? UIColor.white
-            label.textAlignment = .right
             label.numberOfLines = 0
             label.tag = index
-            label.sizeToFit()
-            label.frame.size.width = view.frame.width - textEdgeInsets.left - textEdgeInsets.right
+            
+            if courseTextAlignment == .right {
+                label.textAlignment = .right
+                label.sizeToFit()
+                label.frame.size.width = view.frame.width - textEdgeInsets.left - textEdgeInsets.right
+            } else {
+                label.textAlignment = courseTextAlignment
+                label.sizeToFit()
+                //                cell.textLabel.textAlignment = ellioTable.courseTextAlignment
+            }
+            
             label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(curriculumTapped)))
             label.isUserInteractionEnabled = true
             
