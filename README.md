@@ -48,9 +48,9 @@ tapHandler : on Touch Event Listener for each course item.
 ### How to use   
 On your storyboard, just add a "View" Component.     
 On the Inspector Frame, choose the View class to "Elliotable"   
-![screenshot](./screenshot3.jpeg)   
+![screenshot](./screenshot3.png)   
 This is screenshot how to bind the view into swift file.   
-![screenshot](./screenshot4.jpeg)   
+![screenshot](./screenshot4.png)   
 
 
 First, import my library by adding line below.   
