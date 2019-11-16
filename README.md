@@ -6,7 +6,7 @@ If you only add a course, the course time is automatically calculated and added 
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
    
-[![Version](https://img.shields.io/badge/version-v1.0.6-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.1.1-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
@@ -69,20 +69,28 @@ Finally, define the properties of the timetable.
 
 // Course Item List & Day Symbol
 elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, course_6, course_7, course_8, course_9, course_10]
-elliotable.userDaySymbol = daySymbol
-        
+```
+
+```swift
+// Course Item Round Option : .none, .all, .left(topLeft, bottomRight), .right(topRight, bottomLeft)
+elliotable.roundCorner   = .none
+```
+![screenshot](./screenshot_round_corner.png) 
+
+```swift
+elliotable.userDaySymbol = daySymbol     
 // Table Item Properties
-elliotable.backgroundColor = .white
-elliotable.borderWidth = 1
-elliotable.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
+elliotable.elliotBackgroundColor = UIColor.white
+elliotable.borderWidth        = 1
+elliotable.borderColor        = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
 elliotable.borderCornerRadius = 24
 
 // Course Item Properties
-elliotable.textEdgeInsets = UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 3)
+elliotable.textEdgeInsets = UIEdgeInsets(top: 2, left: 3, bottom: 2, right: 10)
 elliotable.courseItemMaxNameLength = 18
 elliotable.courseItemTextSize      = 12.5
-elliotable.roomNameFontSize = 8
-elliotable.hasRoundCorner = true
+elliotable.courseTextAlignment     = .left
+elliotable.roomNameFontSize        = 8
 
 // Day Symbol & Leftside Time Symbol Properties
 elliotable.symbolFontSize = 14
@@ -94,6 +102,8 @@ elliotable.symbolBackgroundColor = UIColor(named: "main_bg") ?? .white
 
 
 ### Screenshot   
+#### Course Item Rounded Corner
+
 #### Rounded Corner TimeTable   
 ![screenshot](./screenshot_1.jpeg)   
 #### Non-Rounded Corner TimeTable   
