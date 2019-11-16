@@ -13,6 +13,10 @@ import UIKit
     private let controller     = ElliotableController()
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
+    public let defaultMinHour: Int = 9
+    public let defaultMaxEnd : Int = 22
+    public let defaultMinHeightItem : CGFloat = 60.0
+    
     public var userDaySymbol: [String]?
     
     // Settable Options of Time Table View
@@ -23,22 +27,8 @@ import UIKit
         }
     }
     
-    public var courseItemTextColor = UIColor.white {
+    @IBInspectable public var weekDayTextColor = UIColor.black {
         didSet {
-            makeTimeTable()
-        }
-    }
-    
-    public var weekDayTextColor = UIColor.black {
-        didSet {
-            makeTimeTable()
-        }
-    }
-    
-    // Course Time Term Count
-    public var numberOfPeriods = 10 {
-        didSet {
-            collectionView.reloadData()
             makeTimeTable()
         }
     }
@@ -50,123 +40,110 @@ import UIKit
         }
     }
     
-    // The number of weekdays : default value is 7
-    public var dayCount = 7 {
+    @IBInspectable public var hasRoundCorner = false {
         didSet {
             makeTimeTable()
         }
     }
     
-    public var hasRoundCorner = false {
-        didSet {
-            makeTimeTable()
-        }
-    }
-    
-    public var elliotBackgroundColor = UIColor.clear {
+    @IBInspectable public var elliotBackgroundColor = UIColor.clear {
         didSet {
             collectionView.backgroundColor = backgroundColor
         }
     }
     
-    public var symbolBackgroundColor = UIColor.clear {
+    @IBInspectable public var symbolBackgroundColor = UIColor.clear {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var symbolFontSize = CGFloat(10) {
+    @IBInspectable public var symbolFontSize = CGFloat(10) {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var symbolTimeFontSize = CGFloat(10) {
+    @IBInspectable public var symbolTimeFontSize = CGFloat(10) {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var symbolFontColor = UIColor.black {
+    @IBInspectable public var symbolFontColor = UIColor.black {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var symbolTimeFontColor = UIColor.black {
+    @IBInspectable public var symbolTimeFontColor = UIColor.black {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var heightOfDaySection = CGFloat(28) {
+    @IBInspectable public var heightOfDaySection = CGFloat(28) {
         didSet {
             collectionView.reloadData()
             makeTimeTable()
         }
     }
     
-    public var widthOfTimeAxis = CGFloat(32) {
+    @IBInspectable public var widthOfTimeAxis = CGFloat(32) {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var borderWidth = CGFloat(0) {
+    @IBInspectable public var borderWidth = CGFloat(0) {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var borderColor = UIColor.clear {
+    @IBInspectable public var borderColor = UIColor.clear {
         didSet {
             collectionView.reloadData()
         }
     }
     
-    public var borderCornerRadius = CGFloat(0) {
+    @IBInspectable public var borderCornerRadius = CGFloat(0) {
         didSet {
             self.makeTimeTable()
         }
     }
     
-    public var rectEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
+    private var rectEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
         didSet {
             self.makeTimeTable()
         }
     }
     
-    public var textEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
+    @IBInspectable public var textEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
         didSet {
             self.makeTimeTable()
         }
     }
     
-    public var textFontSize = CGFloat(11) {
+    @IBInspectable public var courseItemTextSize = CGFloat(11) {
         didSet {
             self.makeTimeTable()
         }
     }
     
-    public var roomNameFontSize = CGFloat(9) {
+    @IBInspectable public var roomNameFontSize = CGFloat(9) {
         didSet {
             self.makeTimeTable()
         }
     }
     
-    public var textAlignment = NSTextAlignment.center {
+    @IBInspectable public var textAlignment = NSTextAlignment.center {
         didSet {
             self.makeTimeTable()
         }
     }
     
-    public var isTextVerticalCenter = true {
-        didSet {
-            self.makeTimeTable()
-        }
-    }
-    
-    public var maximumNameLength = 0 {
+    @IBInspectable public var courseItemMaxNameLength = 0 {
         didSet {
             self.makeTimeTable()
         }
@@ -227,41 +204,42 @@ import UIKit
             }
         }
         
-        // Calculate Min StartTime
-        for (index, courseItem) in courseItems.enumerated() {
-            let tempStartTimeHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
-            let tempEndTimeHour   = Int(courseItem.endTime.split(separator: ":")[0]) ?? 00
-            
-            if index < 1 {
-                minStartTimeHour = tempStartTimeHour
-                maxEndTimeHour   = tempEndTimeHour
-            } else {
-                if tempStartTimeHour < minStartTimeHour {
-                    minStartTimeHour = tempStartTimeHour
-                }
+        if courseItems.count < 1 {
+            minStartTimeHour = defaultMinHour
+            maxEndTimeHour = defaultMaxEnd
+        } else {
+            // Calculate Min StartTime
+            for (index, courseItem) in courseItems.enumerated() {
+                let tempStartTimeHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
+                let tempEndTimeHour   = Int(courseItem.endTime.split(separator: ":")[0]) ?? 00
                 
-                if tempEndTimeHour > maxEndTimeHour {
-                    maxEndTimeHour = tempEndTimeHour
+                if index < 1 {
+                    minStartTimeHour = tempStartTimeHour
+                    maxEndTimeHour   = tempEndTimeHour
+                } else {
+                    if tempStartTimeHour < minStartTimeHour {
+                        minStartTimeHour = tempStartTimeHour
+                    }
+                    
+                    if tempEndTimeHour > maxEndTimeHour {
+                        maxEndTimeHour = tempEndTimeHour
+                    }
                 }
             }
+            maxEndTimeHour += 1
         }
         
-        maxEndTimeHour += 1
         minimumCourseStartTime = minStartTimeHour
-        
-        // The number of rows in timetable
-        let courseCount = maxEndTimeHour - minStartTimeHour
         
         for (index, courseItem) in courseItems.enumerated() {
             let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + self.daySymbols.count) % self.daySymbols.count
             
-            let courseStartHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
+            let courseStartHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 09
             let courseStartMin  = Int(courseItem.startTime.split(separator: ":")[1]) ?? 00
             
-            let courseEndHour = Int(courseItem.endTime.split(separator: ":")[0]) ?? 24
+            let courseEndHour = Int(courseItem.endTime.split(separator: ":")[0]) ?? 18
             let courseEndMin  = Int(courseItem.endTime.split(separator: ":")[1]) ?? 00
-            
-            let averageHeight = (collectionView.frame.height - heightOfDaySection) / CGFloat(courseCount)
+            let averageHeight = defaultMinHeightItem
             
             // Cell X Position and Y Position
             let position_x = widthOfTimeAxis + averageWidth * CGFloat(weekdayIndex) + rectEdgeInsets.left
@@ -270,7 +248,7 @@ import UIKit
             let position_y = heightOfDaySection + averageHeight * CGFloat(courseStartHour - minStartTimeHour) +
                 CGFloat((CGFloat(courseStartMin) / 60) * averageHeight) + rectEdgeInsets.top
             
-            let width = averageWidth - rectEdgeInsets.left - rectEdgeInsets.right
+            let width = averageWidth
             let height = averageHeight * CGFloat(courseEndHour - courseStartHour) +
                 CGFloat((CGFloat(courseEndMin - courseStartMin) / 60) * averageHeight) - rectEdgeInsets.top - rectEdgeInsets.bottom
             
@@ -286,30 +264,26 @@ import UIKit
                 maskLayer.path = path.cgPath
                 view.layer.mask = maskLayer
             } else {
-                // If Round Option is off, set cornerRadius to Zero.
                 view.layer.cornerRadius = 0
             }
             
-            let label = UILabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
+            let label = PaddingLabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
             var name = courseItem.courseName
             
-            if maximumNameLength > 0 {
-                name.truncate(maximumNameLength)
+            if courseItemMaxNameLength > 0 {
+                name.truncate(courseItemMaxNameLength)
             }
             
             let attrStr = NSMutableAttributedString(string: name + "\n" + courseItem.roomName, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: roomNameFontSize)])
-            attrStr.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: textFontSize)], range: NSRange(0..<name.count))
+            attrStr.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: courseItemTextSize)], range: NSRange(0..<name.count))
             
             label.attributedText = attrStr
-            label.textColor = courseItemTextColor
-            label.textAlignment = textAlignment
+            label.textColor = courseItem.textColor ?? UIColor.white
+            label.textAlignment = .right
             label.numberOfLines = 0
             label.tag = index
-            
-            if !self.isTextVerticalCenter {
-                label.sizeToFit()
-            }
-            
+            label.sizeToFit()
+            label.frame.size.width = view.frame.width - textEdgeInsets.left - textEdgeInsets.right
             label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(curriculumTapped)))
             label.isUserInteractionEnabled = true
             
@@ -342,5 +316,27 @@ extension String {
     
     mutating func truncate(_ length: Int) {
         self = truncated(length)
+    }
+}
+
+extension UILabel {
+    func textWidth() -> CGFloat {
+        return UILabel.textWidth(label: self)
+    }
+    
+    class func textWidth(label: UILabel) -> CGFloat {
+        return textWidth(label: label, text: label.text!)
+    }
+    
+    class func textWidth(label: UILabel, text: String) -> CGFloat {
+        return textWidth(font: label.font, text: text)
+    }
+    
+    class func textWidth(font: UIFont, text: String) -> CGFloat {
+        let myText = text as NSString
+        
+        let rect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        return ceil(labelSize.width)
     }
 }

@@ -32,10 +32,10 @@ class ElliotableCell: UICollectionViewCell {
 @IBDesignable class PaddingLabel: UILabel {
     private var padding: UIEdgeInsets = UIEdgeInsets.zero
     
-    @IBInspectable var topInset: CGFloat = 5.0
-    @IBInspectable var bottomInset: CGFloat = 5.0
-    @IBInspectable var leftInset: CGFloat = 16.0
-    @IBInspectable var rightInset: CGFloat = 16.0
+    @IBInspectable var topInset: CGFloat = 0.0
+    @IBInspectable var bottomInset: CGFloat = 0.0
+    @IBInspectable var leftInset: CGFloat = 0.0
+    @IBInspectable var rightInset: CGFloat = 0.0
     
     override func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets.init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)

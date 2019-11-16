@@ -25,29 +25,35 @@ extension ElliotableController: UICollectionViewDataSource {
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
         
-        for (index, courseItem) in ellioTable.courseItems.enumerated() {
-            let tempStartTimeHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
-            let tempEndTimeHour   = Int(courseItem.endTime.split(separator: ":")[0]) ?? 00
+        if ellioTable.courseItems.count < 1 {
+            minStartTimeHour = ellioTable.defaultMinHour
+            maxEndTimeHour = ellioTable.defaultMaxEnd
+        } else {
             
-            if index < 1 {
-                minStartTimeHour = tempStartTimeHour
-                maxEndTimeHour   = tempEndTimeHour
-            } else {
-                if tempStartTimeHour < minStartTimeHour {
-                    minStartTimeHour = tempStartTimeHour
-                }
+            for (index, courseItem) in ellioTable.courseItems.enumerated() {
+                let tempStartTimeHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
+                let tempEndTimeHour   = Int(courseItem.endTime.split(separator: ":")[0]) ?? 00
                 
-                if tempEndTimeHour > maxEndTimeHour {
-                    maxEndTimeHour = tempEndTimeHour
+                if index < 1 {
+                    minStartTimeHour = tempStartTimeHour
+                    maxEndTimeHour   = tempEndTimeHour
+                } else {
+                    if tempStartTimeHour < minStartTimeHour {
+                        minStartTimeHour = tempStartTimeHour
+                    }
+                    
+                    if tempEndTimeHour > maxEndTimeHour {
+                        maxEndTimeHour = tempEndTimeHour
+                    }
                 }
             }
+            maxEndTimeHour += 1
         }
-        maxEndTimeHour += 1
         
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour
         // 7 = 6 + 1
-        return (courseCount + 1) * (ellioTable.dayCount + 1)
+        return (courseCount + 1) * (ellioTable.daySymbols.count + 1)
     }
     
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -59,20 +65,21 @@ extension ElliotableController: UICollectionViewDataSource {
         if indexPath.row == 0 {
             cell.textLabel.text = ""
             cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-        } else if indexPath.row < (ellioTable.dayCount + 1) {
-            if indexPath.row < ellioTable.dayCount {
+        } else if indexPath.row < (ellioTable.daySymbols.count + 1) {
+            if indexPath.row < ellioTable.daySymbols.count {
                 cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
             }
             cell.textLabel.text = ellioTable.daySymbols[indexPath.row - 1]
             cell.textLabel.textAlignment = .center
             cell.textLabel.font = UIFont.boldSystemFont(ofSize: ellioTable.symbolFontSize)
             cell.textLabel.textColor = ellioTable.symbolFontColor
-        } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
+        } else if indexPath.row % (ellioTable.daySymbols.count + 1) == 0 {
             cell.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 8) - 1 + (indexPath.row / (ellioTable.dayCount + 1)))"
+            print(ellioTable.minimumCourseStartTime)
+            cell.textLabel.text = "\((ellioTable.minimumCourseStartTime ?? 9) - 1 + (indexPath.row / (ellioTable.daySymbols.count + 1)))"
             // Top Right
             cell.textLabel.textAlignment = .right
-            cell.textLabel.topInset = -50.0
+            cell.textLabel.topInset = -40.0
             cell.textLabel.leftInset = -3.0
             cell.textLabel.rightInset = 3.0
             cell.textLabel.sizeToFit()
@@ -96,24 +103,29 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
         
-        for (index, courseItem) in ellioTable.courseItems.enumerated() {
-            let tempStartTimeHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
-            let tempEndTimeHour   = Int(courseItem.endTime.split(separator: ":")[0]) ?? 00
-            
-            if index < 1 {
-                minStartTimeHour = tempStartTimeHour
-                maxEndTimeHour   = tempEndTimeHour
-            } else {
-                if tempStartTimeHour < minStartTimeHour {
-                    minStartTimeHour = tempStartTimeHour
-                }
+        if ellioTable.courseItems.count < 1 {
+            minStartTimeHour = ellioTable.defaultMinHour
+            maxEndTimeHour = ellioTable.defaultMaxEnd
+        } else {
+            for (index, courseItem) in ellioTable.courseItems.enumerated() {
+                let tempStartTimeHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
+                let tempEndTimeHour   = Int(courseItem.endTime.split(separator: ":")[0]) ?? 00
                 
-                if tempEndTimeHour > maxEndTimeHour {
-                    maxEndTimeHour = tempEndTimeHour
+                if index < 1 {
+                    minStartTimeHour = tempStartTimeHour
+                    maxEndTimeHour   = tempEndTimeHour
+                } else {
+                    if tempStartTimeHour < minStartTimeHour {
+                        minStartTimeHour = tempStartTimeHour
+                    }
+                    
+                    if tempEndTimeHour > maxEndTimeHour {
+                        maxEndTimeHour = tempEndTimeHour
+                    }
                 }
             }
+            maxEndTimeHour += 1
         }
-        maxEndTimeHour += 1
         
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour
@@ -121,12 +133,14 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         
         if indexPath.row == 0 {
             return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.heightOfDaySection)
-        } else if indexPath.row < (ellioTable.dayCount + 1) {
+        } else if indexPath.row < (ellioTable.daySymbols.count + 1) {
             return CGSize(width: ellioTable.averageWidth, height: ellioTable.heightOfDaySection)
-        } else if indexPath.row % (ellioTable.dayCount + 1) == 0 {
-            return CGSize(width: ellioTable.widthOfTimeAxis, height: averageHeight)
+        } else if indexPath.row % (ellioTable.daySymbols.count + 1) == 0 {
+//            return CGSize(width: ellioTable.widthOfTimeAxis, height: averageHeight)
+            return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.defaultMinHeightItem)
         } else {
-            return CGSize(width: ellioTable.averageWidth, height: averageHeight)
+//            return CGSize(width: ellioTable.averageWidth, height: averageHeight)
+            return CGSize(width: ellioTable.averageWidth, height: ellioTable.defaultMinHeightItem)
         }
     }
     
@@ -141,11 +155,11 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
 }
 
 extension CALayer {
-
+    
     func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
-
+        
         let border = CALayer()
-
+        
         switch edge {
         case UIRectEdge.top:
             border.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: thickness)
@@ -162,10 +176,10 @@ extension CALayer {
         default:
             break
         }
-
+        
         border.backgroundColor = color.cgColor;
-
+        
         self.addSublayer(border)
     }
-
+    
 }
