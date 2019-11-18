@@ -6,7 +6,7 @@ If you only add a course, the course time is automatically calculated and added 
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
    
-[![Version](https://img.shields.io/badge/version-v1.1.3-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.1.4-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
@@ -91,6 +91,9 @@ elliotable.courseItemMaxNameLength = 18
 elliotable.courseItemTextSize      = 12.5
 elliotable.courseTextAlignment     = .left
 elliotable.roomNameFontSize        = 8
+
+// courseItemHeight - default : 60.0
+elliottable.courseItemHeight       = 70.0
 
 // Day Symbol & Leftside Time Symbol Properties
 elliotable.symbolFontSize = 14
