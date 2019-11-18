@@ -15,7 +15,6 @@ import UIKit
     
     public let defaultMinHour: Int = 9
     public let defaultMaxEnd : Int = 17
-    public let defaultMinHeightItem : CGFloat = 60.0
     
     public var userDaySymbol: [String]?
     
@@ -28,6 +27,12 @@ import UIKit
     
     // Settable Options of Time Table View
     public var startDay = ElliotDay.monday {
+        didSet {
+            makeTimeTable()
+        }
+    }
+    
+    @IBInspectable public var courseItemHeight : CGFloat = 60.0 {
         didSet {
             makeTimeTable()
         }
@@ -244,7 +249,7 @@ import UIKit
             
             let courseEndHour = Int(courseItem.endTime.split(separator: ":")[0]) ?? 18
             let courseEndMin  = Int(courseItem.endTime.split(separator: ":")[1]) ?? 00
-            let averageHeight = defaultMinHeightItem
+            let averageHeight = courseItemHeight
             
             // Cell X Position and Y Position
             let position_x = widthOfTimeAxis + averageWidth * CGFloat(weekdayIndex) + rectEdgeInsets.left

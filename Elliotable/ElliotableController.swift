@@ -15,6 +15,7 @@ class ElliotableController: UIViewController {
     weak var ellioTable: Elliotable!
     weak var collectionView: UICollectionView! {
         didSet {
+            collectionView.isScrollEnabled = false
             collectionView.register(ElliotableCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         }
     }
@@ -145,10 +146,10 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: ellioTable.averageWidth, height: ellioTable.heightOfDaySection)
         } else if indexPath.row % (ellioTable.daySymbols.count + 1) == 0 {
             //            return CGSize(width: ellioTable.widthOfTimeAxis, height: averageHeight)
-            return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.defaultMinHeightItem)
+            return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.courseItemHeight)
         } else {
             //            return CGSize(width: ellioTable.averageWidth, height: averageHeight)
-            return CGSize(width: ellioTable.averageWidth, height: ellioTable.defaultMinHeightItem)
+            return CGSize(width: ellioTable.averageWidth, height: ellioTable.courseItemHeight)
         }
     }
     
