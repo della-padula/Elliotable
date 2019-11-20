@@ -5,6 +5,7 @@ If you only add a course, the course time is automatically calculated and added 
 ### Author Information
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
+Feedback : della.kimko@gmail.com   
    
 [![Version](https://img.shields.io/badge/version-v1.1.4-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
