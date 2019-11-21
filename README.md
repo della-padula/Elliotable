@@ -2,6 +2,10 @@
 Elliotable is simple library to generate Timetable of University.   
 If you only add a course, the course time is automatically calculated and added to the timetable.   
 
+### Korean Version
+Click the link below to view the Korean version READMD.md.   
+[한국어 사용 가이드](./README_kr.md)   
+
 ### Author Information
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
