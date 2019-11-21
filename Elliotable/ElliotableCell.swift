@@ -11,21 +11,28 @@ import UIKit
 
 class ElliotableCell: UICollectionViewCell {
     let textLabel = PaddingLabel()
+    var borderLayer = CALayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        borderLayer.frame = self.bounds
+        layer.addSublayer(borderLayer)
         
         textLabel.textAlignment = .right
         addSubview(textLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         textLabel.frame = bounds
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
 }
 

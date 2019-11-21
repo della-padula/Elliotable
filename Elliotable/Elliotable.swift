@@ -200,14 +200,13 @@ import UIKit
         super.layoutSubviews()
         
         collectionView.frame = bounds
-        //        collectionView.reloadData()
+        collectionView.reloadData()
         makeTimeTable()
     }
     
     private func makeTimeTable() {
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
-        
         for subview in subviews {
             if !(subview is UICollectionView) {
                 subview.removeFromSuperview()
@@ -238,7 +237,6 @@ import UIKit
             }
             maxEndTimeHour += 1
         }
-        
         minimumCourseStartTime = minStartTimeHour
         
         for (index, courseItem) in courseItems.enumerated() {
@@ -296,7 +294,7 @@ import UIKit
                 break
             }
             
-            let label = PaddingLabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
+            let label = PaddingLabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.right, height: view.frame.height - textEdgeInsets.top))
             var name = courseItem.courseName
             
             if courseItemMaxNameLength > 0 {
@@ -307,30 +305,32 @@ import UIKit
             attrStr.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: courseItemTextSize)], range: NSRange(0..<name.count))
             
             label.attributedText = attrStr
-            label.textColor = courseItem.textColor ?? UIColor.white
-            label.numberOfLines = 0
-            label.tag = index
+            label.textColor      = courseItem.textColor ?? UIColor.white
+            label.numberOfLines  = 0
+            label.tag            = index
+            view.tag             = index
             
             if courseTextAlignment == .right {
                 label.textAlignment = .right
-                label.sizeToFit()
-                label.frame.size.width = view.frame.width - textEdgeInsets.left - textEdgeInsets.right
             } else {
                 label.textAlignment = courseTextAlignment
-                label.sizeToFit()
-                //                cell.textLabel.textAlignment = ellioTable.courseTextAlignment
             }
             
-            label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(curriculumTapped)))
-            label.isUserInteractionEnabled = true
+            label.lineBreakMode = NSLineBreakMode.byWordWrapping
+            label.sizeToFit()
+            label.frame = CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: label.bounds.height + 40)
+            label.sizeToFit()
+            label.frame = CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: label.bounds.height)
             
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(lectureTapped)))
+            view.isUserInteractionEnabled = true
             view.addSubview(label)
             addSubview(view)
         }
     }
     
-    @objc func curriculumTapped(_ sender: UITapGestureRecognizer) {
-        let course = courseItems[(sender.view as! UILabel).tag]
+    @objc func lectureTapped(_ sender: UITapGestureRecognizer) {
+        let course = courseItems[(sender.view!).tag]
         course.tapHandler(course)
     }
 }

@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "Elliotable"
-  spec.version      = "1.1.4"
+  spec.version      = "1.1.6"
   spec.summary      = "This is Taein Kim's Elliotable Library which is generate timatable for lecture."
 
   # This description is used to generate tags and improve search results.
