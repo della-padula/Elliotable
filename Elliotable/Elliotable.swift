@@ -199,7 +199,6 @@ import UIKit
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        makeTimeTable()
         collectionView.frame = bounds
         collectionView.reloadData()
         makeTimeTable()
@@ -208,14 +207,11 @@ import UIKit
     private func makeTimeTable() {
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
-        
-//        print("BEFORE subview count : \(subviews.count)")
         for subview in subviews {
             if !(subview is UICollectionView) {
                 subview.removeFromSuperview()
             }
         }
-//        print("AFTER subview count : \(subviews.count)")
         
         if courseItems.count < 1 {
             minStartTimeHour = defaultMinHour
@@ -241,25 +237,7 @@ import UIKit
             }
             maxEndTimeHour += 1
         }
-        
         minimumCourseStartTime = minStartTimeHour
-        /*
-        let sTime = Int(startTime.split(separator: ":")[0]) ?? 9
-        let eTime = Int(endTime.split(separator: ":")[0]) ?? 18
-        
-        if sTime > minimumCourseStartTime! {
-            print("Invalid Start Time")
-            return
-        }
-        
-        if eTime < maxEndTimeHour {
-            print("Invalid End Time")
-            return
-        }
-        
-        minStartTimeHour = sTime
-        maxEndTimeHour = eTime
-        */
         
         for (index, courseItem) in courseItems.enumerated() {
             let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + self.daySymbols.count) % self.daySymbols.count
@@ -316,7 +294,7 @@ import UIKit
                 break
             }
             
-            let label = PaddingLabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left, height: view.frame.height - textEdgeInsets.top - textEdgeInsets.bottom))
+            let label = PaddingLabel(frame: CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.right, height: view.frame.height - textEdgeInsets.top))
             var name = courseItem.courseName
             
             if courseItemMaxNameLength > 0 {
@@ -327,29 +305,31 @@ import UIKit
             attrStr.setAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: courseItemTextSize)], range: NSRange(0..<name.count))
             
             label.attributedText = attrStr
-            label.textColor = courseItem.textColor ?? UIColor.white
-            label.numberOfLines = 0
-            label.tag = index
-            view.tag = index
+            label.textColor      = courseItem.textColor ?? UIColor.white
+            label.numberOfLines  = 0
+            label.tag            = index
+            view.tag             = index
             
             if courseTextAlignment == .right {
                 label.textAlignment = .right
-                label.sizeToFit()
-                label.frame.size.width = view.frame.width - textEdgeInsets.left - textEdgeInsets.right
             } else {
                 label.textAlignment = courseTextAlignment
-                label.sizeToFit()
             }
             
-            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(curriculumTapped)))
-            view.isUserInteractionEnabled = true
+            label.lineBreakMode = NSLineBreakMode.byWordWrapping
+            label.sizeToFit()
+            label.frame = CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: label.bounds.height + 40)
+            label.sizeToFit()
+            label.frame = CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: label.bounds.height)
             
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(lectureTapped)))
+            view.isUserInteractionEnabled = true
             view.addSubview(label)
             addSubview(view)
         }
     }
     
-    @objc func curriculumTapped(_ sender: UITapGestureRecognizer) {
+    @objc func lectureTapped(_ sender: UITapGestureRecognizer) {
         let course = courseItems[(sender.view!).tag]
         course.tapHandler(course)
     }
