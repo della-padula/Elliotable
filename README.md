@@ -17,8 +17,6 @@ Blog : https://terry-some.tistory.com/
 ## Screenshot   
 #### Portrait & Landscape Timetable   
 ![screenshot](./screenshot_1.png)   
-![screenshot](./screenshot_2.png)   
-
 
 ## Installation
 
