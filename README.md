@@ -1,9 +1,9 @@
 # Elliotable
-Elliotable is simple library to generate Timetable of University.   
-If you only add a course, the course time is automatically calculated and added to the timetable.   
+Elliotable is simple library to generate **Timetable** of University.   
+If you only add a course, **the course time is automatically calculated** and added to the timetable.   
 
 ### Korean Version
-----   
+***   
 Click the link below to view the Korean version READMD.md.   
 [한국어 사용 가이드](./README_kr.md)   
 
@@ -21,7 +21,7 @@ Blog : https://terry-some.tistory.com/
 [![Platform](https://img.shields.io/cocoapods/p/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 
 ## Screenshot   
-----   
+
 #### Portrait & Landscape Timetable   
 ![screenshot](./screenshot_1.png)   
 
@@ -34,7 +34,7 @@ pod 'Elliotable'
 ```
 
 ## Usage   
-----   
+
 ### Day Symbol Definition   
 ```swift
 private let daySymbol = ["Mon", "Tue", "Wed", "Thu", "Fri"]   
@@ -60,8 +60,8 @@ tapHandler : on Touch Event Listener for each course item.
 ```
 
 ### How to use   
-On your storyboard, just add a "View" Component.     
-On the Inspector Frame, choose the View class to "Elliotable"   
+On your storyboard, just add a **View** Component.     
+On the Inspector Frame, choose the View class to **Elliotable**   
 ![screenshot](./screenshot3.png)   
 This is screenshot how to bind the view into swift file.   
 ![screenshot](./screenshot4.png)   
