@@ -3,10 +3,12 @@ Elliotable is simple library to generate Timetable of University.
 If you only add a course, the course time is automatically calculated and added to the timetable.   
 
 ### Korean Version
+----   
 Click the link below to view the Korean version READMD.md.   
 [한국어 사용 가이드](./README_kr.md)   
 
 ### Author Information
+----   
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
 Email : della.kimko@gmail.com   
@@ -19,11 +21,12 @@ Blog : https://terry-some.tistory.com/
 [![Platform](https://img.shields.io/cocoapods/p/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 
 ## Screenshot   
+----   
 #### Portrait & Landscape Timetable   
 ![screenshot](./screenshot_1.png)   
 
 ## Installation
-
+----   
 ### Cocoapods
 Elliotable is available through CocoaPods, to install it simply add the following line to your Podfile:   
 ```ruby
@@ -31,6 +34,7 @@ pod 'Elliotable'
 ```
 
 ## Usage   
+----   
 ### Day Symbol Definition   
 ```swift
 private let daySymbol = ["Mon", "Tue", "Wed", "Thu", "Fri"]   
