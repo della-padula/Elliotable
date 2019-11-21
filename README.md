@@ -13,7 +13,8 @@ Timetable Library for iOS Development
 Author : Elliott Kim / Seoul, South Korea   
 Email : della.kimko@gmail.com   
 Blog : https://terry-some.tistory.com/
-   
+Newest Version : 1.1.6 (Cocoapods)  
+  
 [![Version](https://img.shields.io/badge/version-v1.1.6-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
