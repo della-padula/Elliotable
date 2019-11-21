@@ -199,8 +199,9 @@ import UIKit
     public override func layoutSubviews() {
         super.layoutSubviews()
         
+        makeTimeTable()
         collectionView.frame = bounds
-        //        collectionView.reloadData()
+        collectionView.reloadData()
         makeTimeTable()
     }
     
@@ -208,11 +209,13 @@ import UIKit
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
         
+//        print("BEFORE subview count : \(subviews.count)")
         for subview in subviews {
             if !(subview is UICollectionView) {
                 subview.removeFromSuperview()
             }
         }
+//        print("AFTER subview count : \(subviews.count)")
         
         if courseItems.count < 1 {
             minStartTimeHour = defaultMinHour
@@ -240,6 +243,23 @@ import UIKit
         }
         
         minimumCourseStartTime = minStartTimeHour
+        /*
+        let sTime = Int(startTime.split(separator: ":")[0]) ?? 9
+        let eTime = Int(endTime.split(separator: ":")[0]) ?? 18
+        
+        if sTime > minimumCourseStartTime! {
+            print("Invalid Start Time")
+            return
+        }
+        
+        if eTime < maxEndTimeHour {
+            print("Invalid End Time")
+            return
+        }
+        
+        minStartTimeHour = sTime
+        maxEndTimeHour = eTime
+        */
         
         for (index, courseItem) in courseItems.enumerated() {
             let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + self.daySymbols.count) % self.daySymbols.count
@@ -310,6 +330,7 @@ import UIKit
             label.textColor = courseItem.textColor ?? UIColor.white
             label.numberOfLines = 0
             label.tag = index
+            view.tag = index
             
             if courseTextAlignment == .right {
                 label.textAlignment = .right
@@ -318,11 +339,10 @@ import UIKit
             } else {
                 label.textAlignment = courseTextAlignment
                 label.sizeToFit()
-                //                cell.textLabel.textAlignment = ellioTable.courseTextAlignment
             }
             
-            label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(curriculumTapped)))
-            label.isUserInteractionEnabled = true
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(curriculumTapped)))
+            view.isUserInteractionEnabled = true
             
             view.addSubview(label)
             addSubview(view)
@@ -330,7 +350,7 @@ import UIKit
     }
     
     @objc func curriculumTapped(_ sender: UITapGestureRecognizer) {
-        let course = courseItems[(sender.view as! UILabel).tag]
+        let course = courseItems[(sender.view!).tag]
         course.tapHandler(course)
     }
 }
