@@ -7,6 +7,9 @@ If you only add a course, **the course time is automatically calculated** and ad
 Click the link below to view the Korean version READMD.md.   
 [한국어 사용 가이드](./README_kr.md)   
 
+### Android Version
+[MinTimetable](https://github.com/islandparadise14/MinTimetable)    
+
 ### Author Information
 ----   
 Timetable Library for iOS Development   
