@@ -2,6 +2,10 @@
 Elliotable is simple library to generate **Timetable** of University.   
 If you only add a course, **the course time is automatically calculated** and added to the timetable.   
 
+### What's New in v1.1.7  
+- Scroll Issue Resolved.(Hotfix)  
+  
+  
 ### Korean Version
 ***   
 Click the link below to view the Korean version READMD.md.   
@@ -19,7 +23,7 @@ Email : della.kimko@gmail.com
 Blog : https://terry-some.tistory.com/
 Newest Version : 1.1.6 (Cocoapods)  
   
-[![Version](https://img.shields.io/badge/version-v1.1.6-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.1.7-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
