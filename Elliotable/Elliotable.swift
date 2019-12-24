@@ -198,7 +198,6 @@ import UIKit
     
     public override func layoutSubviews() {
         super.layoutSubviews()
-        
         collectionView.frame = bounds
         collectionView.reloadData()
         makeTimeTable()
@@ -207,6 +206,11 @@ import UIKit
     private func makeTimeTable() {
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
+        
+        for subview in collectionView.subviews {
+            subview.removeFromSuperview()
+        }
+        
         for subview in subviews {
             if !(subview is UICollectionView) {
                 subview.removeFromSuperview()
@@ -250,10 +254,10 @@ import UIKit
             let averageHeight = courseItemHeight
             
             // Cell X Position and Y Position
-            let position_x = widthOfTimeAxis + averageWidth * CGFloat(weekdayIndex) + rectEdgeInsets.left
+            let position_x = collectionView.bounds.minX + widthOfTimeAxis + averageWidth * CGFloat(weekdayIndex) + rectEdgeInsets.left
             
             // 요일 높이 + 평균 셀 높이 * 시간 차이 개수 + 분에 대한 추가 여백
-            let position_y = heightOfDaySection + averageHeight * CGFloat(courseStartHour - minStartTimeHour) +
+            let position_y = collectionView.bounds.minY + heightOfDaySection + averageHeight * CGFloat(courseStartHour - minStartTimeHour) +
                 CGFloat((CGFloat(courseStartMin) / 60) * averageHeight) + rectEdgeInsets.top
             
             let width = averageWidth
@@ -325,7 +329,8 @@ import UIKit
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(lectureTapped)))
             view.isUserInteractionEnabled = true
             view.addSubview(label)
-            addSubview(view)
+//            addSubview(view)
+            collectionView.addSubview(view)
         }
     }
     

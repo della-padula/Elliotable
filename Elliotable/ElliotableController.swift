@@ -15,7 +15,7 @@ class ElliotableController: UIViewController {
     weak var ellioTable: Elliotable!
     weak var collectionView: UICollectionView! {
         didSet {
-            collectionView.isScrollEnabled = false
+            collectionView.isScrollEnabled = true
             collectionView.register(ElliotableCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         }
     }
@@ -54,6 +54,8 @@ extension ElliotableController: UICollectionViewDataSource {
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour + 1
         // 7 = 6 + 1
+        print("collectionview size : \(collectionView.frame.height)")
+        print("screen size : \(UIScreen.main.bounds.height)")
         print("item count : \((courseCount + 1) * (ellioTable.daySymbols.count + 1))")
         return (courseCount + 1) * (ellioTable.daySymbols.count + 1)
     }
