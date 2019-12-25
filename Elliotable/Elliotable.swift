@@ -208,6 +208,9 @@ import UIKit
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
         
+        collectionView.reloadData()
+        collectionView.collectionViewLayout.invalidateLayout()
+        
         for subview in collectionView.subviews {
             if !(subview is UICollectionViewCell) {
                 subview.removeFromSuperview()

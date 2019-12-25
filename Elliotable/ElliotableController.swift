@@ -80,6 +80,7 @@ extension ElliotableController: UICollectionViewDataSource {
             cell.setNeedsDisplay()
             backgroundView.backgroundColor = ellioTable.symbolBackgroundColor
             backgroundView.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
+            
         } else if indexPath.row < (ellioTable.daySymbols.count + 1) {
             // Week Day Section
             if indexPath.row < ellioTable.daySymbols.count {
@@ -104,12 +105,15 @@ extension ElliotableController: UICollectionViewDataSource {
             titleLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolTimeFontSize)
             titleLabel.textColor = ellioTable.symbolTimeFontColor
             backgroundView.backgroundColor = ellioTable.symbolBackgroundColor
+            
         } else {
             cell.textLabel.text = ""
             cell.setNeedsDisplay()
             backgroundView.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
             backgroundView.backgroundColor = ellioTable.elliotBackgroundColor
+            
         }
+        
         backgroundView.addSubview(titleLabel)
         cell.addSubview(backgroundView)
         return cell
