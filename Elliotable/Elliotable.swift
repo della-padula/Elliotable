@@ -200,6 +200,7 @@ import UIKit
         super.layoutSubviews()
         collectionView.frame = bounds
         collectionView.reloadData()
+        collectionView.collectionViewLayout.invalidateLayout()
         makeTimeTable()
     }
     
