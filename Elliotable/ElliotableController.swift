@@ -54,9 +54,6 @@ extension ElliotableController: UICollectionViewDataSource {
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour + 1
         // 7 = 6 + 1
-        print("collectionview size : \(collectionView.frame.height)")
-        print("screen size : \(UIScreen.main.bounds.height)")
-        print("item count : \((courseCount + 1) * (ellioTable.daySymbols.count + 1))")
         return (courseCount + 1) * (ellioTable.daySymbols.count + 1)
     }
     
@@ -171,7 +168,7 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected : \(indexPath.row)")
+//        print("Selected : \(indexPath.row)")
     }
     
 }

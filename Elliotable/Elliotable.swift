@@ -208,7 +208,9 @@ import UIKit
         var maxEndTimeHour: Int = 0
         
         for subview in collectionView.subviews {
-            subview.removeFromSuperview()
+            if !(subview is UICollectionViewCell) {
+                subview.removeFromSuperview()
+            }
         }
         
         for subview in subviews {
