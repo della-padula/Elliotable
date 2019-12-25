@@ -11,7 +11,7 @@ iOS 개발을 위한 시간표 라이브러리
 블로그 : https://terry-some.tistory.com/  
 최신 버전 : 1.1.9 (Cocoapods)    
   
-[![Version](https://img.shields.io/badge/version-v1.1.9-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.1.11-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
