@@ -63,7 +63,6 @@ startTime : Start time of course (String type - format : "HH:mm")
 endTime : End time of course (String type - format : "HH:mm")
 backgroundColor : backgroud color of each course item
 (Optional) textColor: Course Item Text Color
-tapHandler : on Touch Event Listener for each course item.
 ```
 
 ### How to use   
@@ -80,9 +79,9 @@ import Elliotable
 ```
 And then, create courses to add to the timetable.   
 ```swift
-let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
+let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor])
 
-let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor], tapHandler: handler)
+let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor])
 ```
 Finally, define the properties of the timetable.   
 ```swift
@@ -90,6 +89,23 @@ Finally, define the properties of the timetable.
 
 // Course Item List & Day Symbol
 elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, course_6, course_7, course_8, course_9, course_10]
+```
+
+## Delegate Pattern
+```swift
+// Delegate Pattern  
+elliotable.delegate = self  
+```
+
+```swift
+// Course Tap Event  
+func elliotable(elliotable: Elliotable, didSelectCourse selectedCourse: ElliottEvent) { }  
+
+// Course Long Press Event  
+func elliotable(elliotable: Elliotable, didLongSelectCourse longSelectedCourse : ElliottEvent) { }  
+
+// Not yet  
+func elliotable(elliotable: Elliotable, cellForCourse: ElliottEvent) { }  
 ```
 
 ```swift
