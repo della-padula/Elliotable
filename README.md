@@ -45,13 +45,7 @@ pod 'Elliotable'
 ### Day Symbol Definition   
 ```swift
 private let daySymbol = ["Mon", "Tue", "Wed", "Thu", "Fri"]   
-```
-### Item Click Handler Implementaion    
-```swift
-let handler = { (course: ElliottEvent) in   
-    print(course.courseName, course.courseDay)   
-}   
-```
+```  
 
 ### Course Item Structure   
 ```swift
