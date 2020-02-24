@@ -38,13 +38,7 @@ pod 'Elliotable'
 ### 요일 정보   
 ```swift
 private let daySymbol = ["월", "화", "수", "목", "금"]   
-```
-### 강의 선택 핸들러 구현    
-```swift
-let handler = { (course: ElliottEvent) in   
-    print(course.courseName, course.courseDay)   
-}   
-```
+```  
 
 ### 강의 아이템 구조   
 ```swift
