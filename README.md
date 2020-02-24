@@ -8,17 +8,14 @@ If you only add a course, **the course time is automatically calculated** and ad
 - Implementation of Event Delegate Pattern
   
   
-### Korean Version
-***   
+## Korean Version     
 Click the link below to view the Korean version READMD.md.   
 [한국어 사용 가이드](./README_kr.md)   
 
-### Android Version
-----  
+## Android Version    
 [MinTimetable](https://github.com/islandparadise14/MinTimetable)    
 
-### Author Information
-----   
+## Author Information  
 Timetable Library for iOS Development   
 Author : Elliott Kim / Seoul, South Korea   
 Email : della.kimko@gmail.com   
@@ -36,8 +33,7 @@ Newest Version : 1.2.0 (Cocoapods)
 #### Portrait & Landscape Timetable   
 ![screenshot](./screenshot_1.png)   
 
-## Installation
-----   
+## Installation  
 ### Cocoapods
 Elliotable is available through CocoaPods, to install it simply add the following line to your Podfile:   
 ```ruby
