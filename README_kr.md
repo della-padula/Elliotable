@@ -56,7 +56,6 @@ startTime : 강의 시작 시간(형식 - "HH:mm")
 endTime : 강의 종료 시간(형식 - "HH:mm")
 backgroundColor : 강의 아이템 배경 색상
 (Optional) textColor: 강의 아이템 글씨 색상 (선택적으로 적용 가능한 옵션)
-tapHandler : 강의 아이템을 탭했을 때 실행할 핸들러를 지정합니다.
 ```
 
 ### 사용 방법    
@@ -73,9 +72,9 @@ import Elliotable
 ```
 시간표 강의 아이템들을 원하는 만큼 추가해줍니다.   
 ```swift
-let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor], tapHandler: handler)
+let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor])
 
-let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor], tapHandler: handler)
+let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor])
 ```
 아울렛 변수를 선언해주고 시간표에 강의 아이템들을 넣어줍니다.   
 ```swift
@@ -84,6 +83,23 @@ let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", r
 // Course Item List & Day Symbol
 elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, course_6, course_7, course_8, course_9, course_10]
 ```
+## Delegate Pattern
+```swift
+// Delegate Pattern  
+elliotable.delegate = self  
+```
+
+```swift
+// 강의 아이템 터치  
+func elliotable(elliotable: Elliotable, didSelectCourse selectedCourse: ElliottEvent) { }  
+
+// 강의 아이템 롱 터치  
+func elliotable(elliotable: Elliotable, didLongSelectCourse longSelectedCourse : ElliottEvent) { }  
+
+// 아직 사용 안함 (개발 중)  
+func elliotable(elliotable: Elliotable, cellForCourse: ElliottEvent) { }  
+```
+
 
 ```swift
 // 강의 아이템 둥근 모서리 속성 : .none, .all, .left(topLeft, bottomRight), .right(topRight, bottomLeft)
