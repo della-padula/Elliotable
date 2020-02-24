@@ -4,14 +4,19 @@ Elliotable은 간단하게 대한민국 대학교 시간표를 누구나 손쉽�
 본 라이브러리는 **시간표의 시작 시각과 종료 시각을 자동으로 계산**하여 적용합니다.  
 강의 아이템을 추가하면 **가장 빠른 시간**과 **가장 늦은 시간**을 계산하여 시간표를 구성해줍니다.  
 
+### What's New in v1.2.0  
+- 강의 아이템 길게 누름 이벤트 적용. 
+- 강의 아이템 누름 이벤트 적용. 
+- Delegate 패턴 적용으로 Table View 사용하듯이 이벤트 처리 가능. 
+
 ### 개발자 정보
 iOS 개발을 위한 시간표 라이브러리   
 개발자 : 김태인 / 서울, 대한민국   
 이메일 : della.kimko@gmail.com   
 블로그 : https://terry-some.tistory.com/  
-최신 버전 : 1.1.9 (Cocoapods)    
+최신 버전 : 1.2.0 (Cocoapods)    
   
-[![Version](https://img.shields.io/badge/version-v1.1.11-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.2.0-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
