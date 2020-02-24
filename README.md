@@ -87,6 +87,11 @@ elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, cour
 
 ## Delegate Pattern
 ```swift
+class ViewController : UIViewController, ElliotableDelegate {
+
+}
+```
+```swift
 // Delegate Pattern  
 elliotable.delegate = self  
 ```
