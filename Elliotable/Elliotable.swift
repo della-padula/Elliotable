@@ -9,6 +9,14 @@
 import Foundation
 import UIKit
 
+public protocol ElliotableDelegate {
+    func elliotable(elliotable: Elliotable, didSelectCourse selectedCourse: ElliottEvent)
+    
+    func elliotable(elliotable: Elliotable, didLongSelectCourse longSelectedCourse : ElliottEvent)
+    
+    func elliotable(elliotable: Elliotable, cellForCourse: ElliottEvent)
+}
+
 @IBDesignable public class Elliotable: UIView {
     private let controller     = ElliotableController()
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -17,6 +25,7 @@ import UIKit
     public let defaultMaxEnd : Int = 17
     
     public var userDaySymbol: [String]?
+    public var delegate: ElliotableDelegate?
     
     public enum roundOption: Int {
         case none  = 0
@@ -332,7 +341,9 @@ import UIKit
             label.sizeToFit()
             label.frame = CGRect(x: textEdgeInsets.left, y: textEdgeInsets.top, width: view.frame.width - textEdgeInsets.left - textEdgeInsets.right, height: label.bounds.height)
             
+            view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(lectureLongPressed)))
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(lectureTapped)))
+            
             view.isUserInteractionEnabled = true
             view.addSubview(label)
 //            addSubview(view)
@@ -340,9 +351,16 @@ import UIKit
         }
     }
     
+    @objc func lectureLongPressed(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let course = courseItems[(sender.view!).tag]
+            self.delegate?.elliotable(elliotable: self, didLongSelectCourse: course)
+        }
+    }
+    
     @objc func lectureTapped(_ sender: UITapGestureRecognizer) {
         let course = courseItems[(sender.view!).tag]
-        course.tapHandler(course)
+        self.delegate?.elliotable(elliotable: self, didSelectCourse: course)
     }
 }
 

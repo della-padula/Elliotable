@@ -18,10 +18,8 @@ public struct ElliottEvent {
     public let endTime   : String
     public let textColor      : UIColor?
     public let backgroundColor: UIColor
-    public let tapHandler: (ElliottEvent) -> Void
     
-    public init(courseId: String, courseName: String, roomName: String, courseDay: ElliotDay,startTime: String, endTime: String, textColor: UIColor?, backgroundColor: UIColor,
-                tapHandler: @escaping (ElliottEvent) -> Void) {
+    public init(courseId: String, courseName: String, roomName: String, courseDay: ElliotDay,startTime: String, endTime: String, textColor: UIColor?, backgroundColor: UIColor) {
         self.courseId        = courseId
         self.courseName      = courseName
         self.roomName        = roomName
@@ -30,11 +28,9 @@ public struct ElliottEvent {
         self.endTime         = endTime
         self.textColor       = textColor
         self.backgroundColor = backgroundColor
-        self.tapHandler      = tapHandler
     }
     
-    public init(courseId: String, courseName: String, roomName: String, courseDay: ElliotDay,startTime: String, endTime: String, backgroundColor: UIColor,
-                tapHandler: @escaping (ElliottEvent) -> Void) {
+    public init(courseId: String, courseName: String, roomName: String, courseDay: ElliotDay,startTime: String, endTime: String, backgroundColor: UIColor) {
         self.courseId        = courseId
         self.courseName      = courseName
         self.roomName        = roomName
@@ -43,7 +39,6 @@ public struct ElliottEvent {
         self.endTime         = endTime
         self.textColor       = UIColor.white
         self.backgroundColor = backgroundColor
-        self.tapHandler      = tapHandler
     }
     
 }
