@@ -13,8 +13,14 @@ public protocol ElliotableDelegate {
     func elliotable(elliotable: Elliotable, didSelectCourse selectedCourse: ElliottEvent)
     
     func elliotable(elliotable: Elliotable, didLongSelectCourse longSelectedCourse : ElliottEvent)
+}
+
+public protocol ElliotableDataSource {
+    func elliotable(elliotable: Elliotable, at dayPerIndex: Int) -> String
     
-    func elliotable(elliotable: Elliotable, cellForCourse: ElliottEvent)
+    func numberOfDays(in elliotable: Elliotable) -> Int
+    
+    func courseItems(in elliotable: Elliotable) -> [ElliottEvent]
 }
 
 @IBDesignable public class Elliotable: UIView {
@@ -26,6 +32,9 @@ public protocol ElliotableDelegate {
     
     public var userDaySymbol: [String]?
     public var delegate: ElliotableDelegate?
+    public var dataSource: ElliotableDataSource?
+    
+    public var courseCells = [ElliotableCell]()
     
     public enum roundOption: Int {
         case none  = 0
@@ -170,7 +179,15 @@ public protocol ElliotableDelegate {
     
     public var daySymbols: [String] {
         var daySymbolText = [String]()
-        daySymbolText = self.userDaySymbol ?? Calendar.current.shortStandaloneWeekdaySymbols
+        
+        if let count = self.dataSource?.numberOfDays(in: self) {
+            for index in 0..<count {
+                let text = self.dataSource?.elliotable(elliotable: self, at: index) ?? Calendar.current.shortStandaloneWeekdaySymbols[index]
+                daySymbolText.append(text)
+            }
+        }
+        
+//        daySymbolText = self.userDaySymbol ?? Calendar.current.shortStandaloneWeekdaySymbols
         
         let startIndex = self.startDay.rawValue - 1
         daySymbolText.rotate(shiftingToStart: startIndex)
@@ -231,6 +248,8 @@ public protocol ElliotableDelegate {
                 subview.removeFromSuperview()
             }
         }
+        // DataSource Delegate
+        let courseItems = self.dataSource?.courseItems(in: self) ?? [ElliottEvent]()
         
         if courseItems.count < 1 {
             minStartTimeHour = defaultMinHour
@@ -259,7 +278,8 @@ public protocol ElliotableDelegate {
         minimumCourseStartTime = minStartTimeHour
         
         for (index, courseItem) in courseItems.enumerated() {
-            let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + self.daySymbols.count) % self.daySymbols.count
+            let dayCount = dataSource?.numberOfDays(in: self) ?? 6
+            let weekdayIndex = (courseItem.courseDay.rawValue - startDay.rawValue + dayCount) % dayCount
             
             let courseStartHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 09
             let courseStartMin  = Int(courseItem.startTime.split(separator: ":")[1]) ?? 00
@@ -346,7 +366,6 @@ public protocol ElliotableDelegate {
             
             view.isUserInteractionEnabled = true
             view.addSubview(label)
-//            addSubview(view)
             collectionView.addSubview(view)
         }
     }
@@ -361,6 +380,10 @@ public protocol ElliotableDelegate {
     @objc func lectureTapped(_ sender: UITapGestureRecognizer) {
         let course = courseItems[(sender.view!).tag]
         self.delegate?.elliotable(elliotable: self, didSelectCourse: course)
+    }
+    
+    public func reloadData() {
+        courseItems = self.dataSource?.courseItems(in: self) ?? [ElliottEvent]()
     }
 }
 
