@@ -35,11 +35,7 @@ pod 'Elliotable'
 ```
 
 ## 라이브러리 사용    
-### 요일 정보   
-```swift
-private let daySymbol = ["월", "화", "수", "목", "금"]   
-```  
-
+   
 ### 강의 아이템 구조   
 ```swift
 courseId : 강의 고유번호(ID)   
@@ -70,75 +66,101 @@ let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", r
 
 let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor])
 ```
-아울렛 변수를 선언해주고 시간표에 강의 아이템들을 넣어줍니다.   
+아울렛 변수를 선언해줍니다.   
 ```swift
 @IBOutlet var elliotable: Elliotable!
-
-// Course Item List & Day Symbol
-elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, course_6, course_7, course_8, course_9, course_10]
 ```
-## Delegate Pattern
+## Delegate Pattern  
+Elliotable는 Delegate Pattern을 사용합니다.  
 ```swift
-class ViewController : UIViewController, ElliotableDelegate {
+class ViewController : UIViewController, ElliotableDelegate, ElliotableDataSource {
 
 }
-```  
+```
 ```swift
 // Delegate Pattern  
 elliotable.delegate = self  
-```
-
+elliotable.dataSource = self
+```  
+## 강의 아이템 적용   
+강의 아이템을 시간표에 적용하려면 Delegate Pattern 메소드를 활용하여 적용할 수 있습니다. 아래와 같이 말이죠.  
 ```swift
-// 강의 아이템 터치  
+// Set course Items
+func courseItems(in elliotable: Elliotable) -> [ElliottEvent] {  
+    return courseList  
+}  
+```  
+## 강의 아이템 변경(업데이트)   
+강의 아이템 리스트가 변경될 경우 (추가, 삭제, 변경 등) reloadData() 함수를 반드시 호출해주어야 시간표가 갱신됩니다.  
+```swift
+elliotable.reloadData()  
+```
+  
+## 강의 아이템 터치 이벤트 처리   
+두 가지 터치 이벤트가 있습니다. (일반 터치 이벤트, 롱 터치 이벤트) Delegate Method를 사용하여 터치 이벤트를 처리할 수 있습니다.  
+```swift
+// Course Tap Event  
 func elliotable(elliotable: Elliotable, didSelectCourse selectedCourse: ElliottEvent) { }  
 
-// 강의 아이템 롱 터치  
+// Course Long Press Event  
 func elliotable(elliotable: Elliotable, didLongSelectCourse longSelectedCourse : ElliottEvent) { }  
-
-// 아직 사용 안함 (개발 중)  
-func elliotable(elliotable: Elliotable, cellForCourse: ElliottEvent) { }  
 ```
-
-
+## 강의 아이템 라운드 코너링 처리   
+Elliotable은 4가지 라운드 처리를 지원합니다. 스크린샷을 참고하여 적용하시기 바랍니다.  
 ```swift
-// 강의 아이템 둥근 모서리 속성 : .none, .all, .left(topLeft, bottomRight), .right(topRight, bottomLeft)
+// Course Item Round Option : .none, .all, .left(topLeft, bottomRight), .right(topRight, bottomLeft)
 elliotable.roundCorner   = .none
 ```
 ![screenshot](./screenshot_round_corner.png) 
-
+  
+## 요일 텍스트 정의   
 ```swift
-elliotable.userDaySymbol = daySymbol     
-// 시간표 배경
-elliotable.elliotBackgroundColor = UIColor.white
-// 시간표 선 두께
-elliotable.borderWidth        = 1
-// 시간표 선 색상
-elliotable.borderColor        = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
+private let daySymbol = ["Mon", "Tue", "Wed", "Thu", "Fri"]   
+```  
+  
+## 요일 부분 설정  
+요일 텍스트는 DataSource Delegate Method 중 elliotable(elliotable:, at textPerIndex:) 함수와 numberOfDays(in elliotable:) 함수를 사용하여 적용할 수 있습니다.  
+```swift
+func elliotable(elliotable: Elliotable, at textPerIndex: Int) -> String {  
+    return self.daySymbol[textPerIndex]  
+}  
+  
+func numberOfDays(in elliotable: Elliotable) -> Int {  
+    return self.daySymbol.count  
+}  
+```  
+  
+## 시간표 전체 테두리 설정  
+시간표 전체 부분에 대하여 테두리 유무를 설정할 수 있습니다. 스크린 샷을 참고하여 적용하시기 바랍니다.  
+```swift
+// Full Border Option
+elliotable.isFullBorder = true
+```
+![screenshot](./screenshot_full_border.png) 
 
-// 강의 아이템의 둥근 모서리 radius 설정   
+기타 시간표 속성들  
+```swift   
+// Table Item Properties
+elliotable.elliotBackgroundColor = UIColor.white
+elliotable.borderWidth        = 1
+elliotable.borderColor        = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
 elliotable.borderCornerRadius = 24
-// 강의 아이템의 텍스트 안쪽 간격 설정
+
+// Course Item Properties
 elliotable.textEdgeInsets = UIEdgeInsets(top: 2, left: 3, bottom: 2, right: 10)
-// 최대 이름 길이
 elliotable.courseItemMaxNameLength = 18
-// 강의 정보 글자 크기
 elliotable.courseItemTextSize      = 12.5
-// 강의 정보 글자 정렬
 elliotable.courseTextAlignment     = .left
-// 강의실 이름 글자 크기
 elliotable.roomNameFontSize        = 8
 
-// 시간표 행 높이 (기본 : 60.0)
+// courseItemHeight - default : 60.0
 elliottable.courseItemHeight       = 70.0
-// 요일 글자 크기
+
+// Day Symbol & Leftside Time Symbol Properties
 elliotable.symbolFontSize = 14
-// 시각 글자 크기
 elliotable.symbolTimeFontSize = 12
-// 요일 글자 색상
 elliotable.symbolFontColor = UIColor(displayP3Red: 0.1, green: 0.1, blue: 0.1, alpha: 1.0)
-// 시각 글자 색상
 elliotable.symbolTimeFontColor = UIColor(displayP3Red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-// 요일/시각 배경 색상
 elliotable.symbolBackgroundColor = UIColor(named: "main_bg") ?? .white  
 ```
 
