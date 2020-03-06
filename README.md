@@ -38,12 +38,7 @@ Elliotable is available through CocoaPods, to install it simply add the followin
 pod 'Elliotable'
 ```
 
-## Usage   
-
-### Day Symbol Definition   
-```swift
-private let daySymbol = ["Mon", "Tue", "Wed", "Thu", "Fri"]   
-```  
+## Usage     
 
 ### Course Item Structure   
 ```swift
@@ -80,7 +75,8 @@ Finally, define the properties of the timetable.
 @IBOutlet var elliotable: Elliotable!
 ```
 
-## Delegate Pattern
+## Delegate Pattern  
+Elliotable uses Delegate Pattern.  
 ```swift
 class ViewController : UIViewController, ElliotableDelegate, ElliotableDataSource {
 
@@ -90,7 +86,8 @@ class ViewController : UIViewController, ElliotableDelegate, ElliotableDataSourc
 // Delegate Pattern  
 elliotable.delegate = self  
 elliotable.dataSource = self
-```
+```  
+## Course Item Application   
 To apply the course, please use the courseItems method among the Delegate methods.  
 ```swift
 // Set course Items
@@ -98,10 +95,13 @@ func courseItems(in elliotable: Elliotable) -> [ElliottEvent] {
     return courseList  
 }  
 ```  
+## Update Course Item   
 If you change the course item, you should call the reloadData function to allow new data to be applied.  
 ```swift
 elliotable.reloadData()  
 ```
+  
+## Course Item Event Listener   
 There are two touch events for lecture items, a regular touch event and a long touch event.  
 ```swift
 // Course Tap Event  
@@ -110,6 +110,7 @@ func elliotable(elliotable: Elliotable, didSelectCourse selectedCourse: ElliottE
 // Course Long Press Event  
 func elliotable(elliotable: Elliotable, didLongSelectCourse longSelectedCourse : ElliottEvent) { }  
 ```
+## Course Item Round Corder Option Configuration   
 If you want to process the round for the lecture item, you can apply the following options.  
 ```swift
 // Course Item Round Option : .none, .all, .left(topLeft, bottomRight), .right(topRight, bottomLeft)
@@ -117,6 +118,12 @@ elliotable.roundCorner   = .none
 ```
 ![screenshot](./screenshot_round_corner.png) 
   
+## Day Symbol Definition   
+```swift
+private let daySymbol = ["Mon", "Tue", "Wed", "Thu", "Fri"]   
+```  
+  
+## Day Section Configuration  
 The section representing the day of the week can be implemented using textPerIndex and numberOfDays.  
 ```swift
 func elliotable(elliotable: Elliotable, at textPerIndex: Int) -> String {  
@@ -126,7 +133,9 @@ func elliotable(elliotable: Elliotable, at textPerIndex: Int) -> String {
 func numberOfDays(in elliotable: Elliotable) -> Int {  
     return self.daySymbol.count  
 }  
-```
+```  
+  
+## Border Option Configuration  
 To apply the timetable border properties, you can apply them as follows. For the result screen, see screenshots.  
 ```swift
 // Full Border Option
