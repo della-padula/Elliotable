@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ElliotableCell: UICollectionViewCell {
+public class ElliotableCell: UICollectionViewCell {
     let textLabel = PaddingLabel()
     var borderLayer = CALayer()
     
@@ -26,12 +26,12 @@ class ElliotableCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         textLabel.frame = bounds
     }
     
-    override func prepareForReuse() {
+    override public func prepareForReuse() {
         super.prepareForReuse()
     }
 }

@@ -12,7 +12,7 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class ElliotableController: UIViewController {
-    weak var ellioTable: Elliotable!
+    weak var elliotable: Elliotable!
     weak var collectionView: UICollectionView! {
         didSet {
             collectionView.isScrollEnabled = true
@@ -26,12 +26,12 @@ extension ElliotableController: UICollectionViewDataSource {
         var minStartTimeHour: Int = 09
         var maxEndTimeHour: Int = 17
         
-        if ellioTable.courseItems.count < 1 {
-            minStartTimeHour = ellioTable.defaultMinHour
-            maxEndTimeHour = ellioTable.defaultMaxEnd
+        if elliotable.courseItems.count < 1 {
+            minStartTimeHour = elliotable.defaultMinHour
+            maxEndTimeHour = elliotable.defaultMaxEnd
         } else {
             
-            for (index, courseItem) in ellioTable.courseItems.enumerated() {
+            for (index, courseItem) in elliotable.courseItems.enumerated() {
                 let tempStartTimeHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
                 let tempEndTimeHour   = Int(courseItem.endTime.split(separator: ":")[0]) ?? 00
                 
@@ -54,7 +54,7 @@ extension ElliotableController: UICollectionViewDataSource {
         // The number of rows in timetable
         let courseCount = maxEndTimeHour - minStartTimeHour + 1
         // 7 = 6 + 1
-        return (courseCount + 1) * (ellioTable.daySymbols.count + 1)
+        return (courseCount + 1) * (elliotable.daySymbols.count + 1)
     }
     
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -62,7 +62,7 @@ extension ElliotableController: UICollectionViewDataSource {
         let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height))
         let titleLabel     = PaddingLabel(frame: CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height))
         
-        backgroundView.layer.addBorder(edge: UIRectEdge.bottom, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
+        backgroundView.layer.addBorder(edge: UIRectEdge.bottom, color: elliotable.borderColor, thickness: elliotable.borderWidth)
         backgroundView.backgroundColor = .clear
         backgroundView.tag = 9
         
@@ -72,45 +72,65 @@ extension ElliotableController: UICollectionViewDataSource {
             }
         }
         
-        cell.textLabel.textColor = ellioTable.weekDayTextColor
+        cell.textLabel.textColor = elliotable.weekDayTextColor
         
         // 0,0
         if indexPath.row == 0 {
             titleLabel.text = ""
             cell.setNeedsDisplay()
-            backgroundView.backgroundColor = ellioTable.symbolBackgroundColor
-            backgroundView.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
+            backgroundView.backgroundColor = elliotable.symbolBackgroundColor
             
-        } else if indexPath.row < (ellioTable.daySymbols.count + 1) {
+            if elliotable.isFullBorder {
+                backgroundView.layer.addBorder(edge: UIRectEdge.left, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+            
+                backgroundView.layer.addBorder(edge: UIRectEdge.top, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+            }
+            
+            backgroundView.layer.addBorder(edge: UIRectEdge.right, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+            
+        } else if indexPath.row < (elliotable.daySymbols.count + 1) {
             // Week Day Section
-            if indexPath.row < ellioTable.daySymbols.count {
-                backgroundView.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
+            if indexPath.row < elliotable.daySymbols.count {
+                if elliotable.isFullBorder {
+                    backgroundView.layer.addBorder(edge: UIRectEdge.top, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+                }
+                
+                backgroundView.layer.addBorder(edge: UIRectEdge.right, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+            } else {
+                if elliotable.isFullBorder {
+                    backgroundView.layer.addBorder(edge: UIRectEdge.top, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+                    
+                    backgroundView.layer.addBorder(edge: UIRectEdge.right, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+                }
             }
             cell.setNeedsDisplay()
             
-            titleLabel.text = ellioTable.daySymbols[indexPath.row - 1]
+            titleLabel.text = elliotable.daySymbols[indexPath.row - 1]
             titleLabel.textAlignment = .center
-            titleLabel.font = UIFont.boldSystemFont(ofSize: ellioTable.symbolFontSize)
-            titleLabel.textColor = ellioTable.symbolFontColor
-            backgroundView.backgroundColor = ellioTable.symbolBackgroundColor
+            titleLabel.font = UIFont.boldSystemFont(ofSize: elliotable.symbolFontSize)
+            titleLabel.textColor = elliotable.symbolFontColor
+            backgroundView.backgroundColor = elliotable.symbolBackgroundColor
             
-        } else if indexPath.row % (ellioTable.daySymbols.count + 1) == 0 {
+        } else if indexPath.row % (elliotable.daySymbols.count + 1) == 0 {
             // Time Section
-            backgroundView.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-            titleLabel.text = "\((ellioTable.minimumCourseStartTime ?? 9) - 1 + (indexPath.row / (ellioTable.daySymbols.count + 1)))"
+            if elliotable.isFullBorder {
+                backgroundView.layer.addBorder(edge: UIRectEdge.left, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+            }
+            backgroundView.layer.addBorder(edge: UIRectEdge.right, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+            titleLabel.text = "\((elliotable.minimumCourseStartTime ?? 9) - 1 + (indexPath.row / (elliotable.daySymbols.count + 1)))"
             titleLabel.textAlignment = .right
             titleLabel.sizeToFit()
             titleLabel.rightInset = 3
             titleLabel.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: titleLabel.frame.height)
-            titleLabel.font = UIFont.systemFont(ofSize: ellioTable.symbolTimeFontSize)
-            titleLabel.textColor = ellioTable.symbolTimeFontColor
-            backgroundView.backgroundColor = ellioTable.symbolBackgroundColor
+            titleLabel.font = UIFont.systemFont(ofSize: elliotable.symbolTimeFontSize)
+            titleLabel.textColor = elliotable.symbolTimeFontColor
+            backgroundView.backgroundColor = elliotable.symbolBackgroundColor
             
         } else {
             cell.textLabel.text = ""
             cell.setNeedsDisplay()
-            backgroundView.layer.addBorder(edge: UIRectEdge.right, color: ellioTable.borderColor, thickness: ellioTable.borderWidth)
-            backgroundView.backgroundColor = ellioTable.elliotBackgroundColor
+            backgroundView.layer.addBorder(edge: UIRectEdge.right, color: elliotable.borderColor, thickness: elliotable.borderWidth)
+            backgroundView.backgroundColor = elliotable.elliotBackgroundColor
             
         }
         
@@ -128,11 +148,11 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
         
-        if ellioTable.courseItems.count < 1 {
-            minStartTimeHour = ellioTable.defaultMinHour
-            maxEndTimeHour = ellioTable.defaultMaxEnd
+        if elliotable.courseItems.count < 1 {
+            minStartTimeHour = elliotable.defaultMinHour
+            maxEndTimeHour = elliotable.defaultMaxEnd
         } else {
-            for (index, courseItem) in ellioTable.courseItems.enumerated() {
+            for (index, courseItem) in elliotable.courseItems.enumerated() {
                 let tempStartTimeHour = Int(courseItem.startTime.split(separator: ":")[0]) ?? 24
                 let tempEndTimeHour   = Int(courseItem.endTime.split(separator: ":")[0]) ?? 00
                 
@@ -153,13 +173,13 @@ extension ElliotableController: UICollectionViewDelegateFlowLayout {
         }
         
         if indexPath.row == 0 {
-            return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.heightOfDaySection)
-        } else if indexPath.row < (ellioTable.daySymbols.count + 1) {
-            return CGSize(width: ellioTable.averageWidth, height: ellioTable.heightOfDaySection)
-        } else if indexPath.row % (ellioTable.daySymbols.count + 1) == 0 {
-            return CGSize(width: ellioTable.widthOfTimeAxis, height: ellioTable.courseItemHeight)
+            return CGSize(width: elliotable.widthOfTimeAxis, height: elliotable.heightOfDaySection)
+        } else if indexPath.row < (elliotable.daySymbols.count + 1) {
+            return CGSize(width: elliotable.averageWidth, height: elliotable.heightOfDaySection)
+        } else if indexPath.row % (elliotable.daySymbols.count + 1) == 0 {
+            return CGSize(width: elliotable.widthOfTimeAxis, height: elliotable.courseItemHeight)
         } else {
-            return CGSize(width: ellioTable.averageWidth, height: ellioTable.courseItemHeight)
+            return CGSize(width: elliotable.averageWidth, height: elliotable.courseItemHeight)
         }
     }
     
