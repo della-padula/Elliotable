@@ -2,10 +2,8 @@
 Elliotable is simple library to generate **Timetable** of University.   
 If you only add a course, **the course time is automatically calculated** and added to the timetable.   
 
-### What's New in v1.2.0  
-- Long Pressed Gesture Added
-- Click Gesture Added
-- Implementation of Event Delegate Pattern
+### What's New in v1.2.1  
+- Implementation of Event Delegate, Data Source Delegate Pattern
   
   
 ## Korean Version     
@@ -20,9 +18,9 @@ Timetable Library for iOS Development
 Author : Elliott Kim / Seoul, South Korea   
 Email : della.kimko@gmail.com   
 Blog : https://terry-some.tistory.com/
-Newest Version : 1.2.0 (Cocoapods)  
+Newest Version : 1.2.1 (Cocoapods)  
   
-[![Version](https://img.shields.io/badge/version-v1.2.0-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.2.1-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
@@ -80,41 +78,64 @@ let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", r
 Finally, define the properties of the timetable.   
 ```swift
 @IBOutlet var elliotable: Elliotable!
-
-// Course Item List & Day Symbol
-elliotable.courseItems = [course_1, course_2, course_3, course_4, course_5, course_6, course_7, course_8, course_9, course_10]
 ```
 
 ## Delegate Pattern
 ```swift
-class ViewController : UIViewController, ElliotableDelegate {
+class ViewController : UIViewController, ElliotableDelegate, ElliotableDataSource {
 
 }
 ```
 ```swift
 // Delegate Pattern  
 elliotable.delegate = self  
+elliotable.dataSource = self
 ```
-
+To apply the course, please use the courseItems method among the Delegate methods.  
+```swift
+// Set course Items
+func courseItems(in elliotable: Elliotable) -> [ElliottEvent] {  
+    return courseList  
+}  
+```  
+If you change the course item, you should call the reloadData function to allow new data to be applied.  
+```swift
+elliotable.reloadData()  
+```
+There are two touch events for lecture items, a regular touch event and a long touch event.  
 ```swift
 // Course Tap Event  
 func elliotable(elliotable: Elliotable, didSelectCourse selectedCourse: ElliottEvent) { }  
 
 // Course Long Press Event  
 func elliotable(elliotable: Elliotable, didLongSelectCourse longSelectedCourse : ElliottEvent) { }  
-
-// Not yet  
-func elliotable(elliotable: Elliotable, cellForCourse: ElliottEvent) { }  
 ```
-
+If you want to process the round for the lecture item, you can apply the following options.  
 ```swift
 // Course Item Round Option : .none, .all, .left(topLeft, bottomRight), .right(topRight, bottomLeft)
 elliotable.roundCorner   = .none
 ```
 ![screenshot](./screenshot_round_corner.png) 
-
+  
+The section representing the day of the week can be implemented using textPerIndex and numberOfDays.  
 ```swift
-elliotable.userDaySymbol = daySymbol     
+func elliotable(elliotable: Elliotable, at textPerIndex: Int) -> String {  
+    return self.daySymbol[textPerIndex]  
+}  
+  
+func numberOfDays(in elliotable: Elliotable) -> Int {  
+    return self.daySymbol.count  
+}  
+```
+To apply the timetable border properties, you can apply them as follows. For the result screen, see screenshots.  
+```swift
+// Full Border Option
+elliotable.isFullBorder = true
+```
+![screenshot](./screenshot_full_border.png) 
+
+Other Timetable Properties  
+```swift   
 // Table Item Properties
 elliotable.elliotBackgroundColor = UIColor.white
 elliotable.borderWidth        = 1
