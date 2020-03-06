@@ -23,6 +23,13 @@ public protocol ElliotableDataSource {
     func courseItems(in elliotable: Elliotable) -> [ElliottEvent]
 }
 
+public enum roundOption: Int {
+    case none  = 0
+    case left  = 1
+    case right = 2
+    case all   = 3
+}
+
 @IBDesignable public class Elliotable: UIView {
     private let controller     = ElliotableController()
     private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -36,15 +43,14 @@ public protocol ElliotableDataSource {
     
     public var courseCells = [ElliotableCell]()
     
-    public enum roundOption: Int {
-        case none  = 0
-        case left  = 1
-        case right = 2
-        case all   = 3
-    }
-    
     // Settable Options of Time Table View
     public var startDay = ElliotDay.monday {
+        didSet {
+            makeTimeTable()
+        }
+    }
+    
+    public var isFullBorder: Bool = false {
         didSet {
             makeTimeTable()
         }
@@ -211,7 +217,7 @@ public protocol ElliotableDataSource {
     }
     
     private func initialize() {
-        controller.ellioTable = self
+        controller.elliotable = self
         controller.collectionView = collectionView
         
         collectionView.dataSource = controller
@@ -299,6 +305,7 @@ public protocol ElliotableDataSource {
             let height = averageHeight * CGFloat(courseEndHour - courseStartHour) +
                 CGFloat((CGFloat(courseEndMin - courseStartMin) / 60) * averageHeight) - rectEdgeInsets.top - rectEdgeInsets.bottom
             
+            // MARK: Elliotable Course Item Cell
             let view = UIView(frame: CGRect(x: position_x, y: position_y, width: width, height: height))
             view.backgroundColor = courseItem.backgroundColor
             
