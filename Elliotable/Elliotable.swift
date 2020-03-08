@@ -240,6 +240,7 @@ public enum roundOption: Int {
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
         
+        collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         collectionView.reloadData()
         collectionView.collectionViewLayout.invalidateLayout()
         
