@@ -149,13 +149,14 @@ Other Timetable Properties
 elliotable.elliotBackgroundColor = UIColor.white
 elliotable.borderWidth        = 1
 elliotable.borderColor        = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
-elliotable.borderCornerRadius = 24
 
 // Course Item Properties
 elliotable.textEdgeInsets = UIEdgeInsets(top: 2, left: 3, bottom: 2, right: 10)
 elliotable.courseItemMaxNameLength = 18
 elliotable.courseItemTextSize      = 12.5
 elliotable.courseTextAlignment     = .left
+// Course Item Round Radius
+elliotable.borderCornerRadius = 24
 elliotable.roomNameFontSize        = 8
 
 // courseItemHeight - default : 60.0
