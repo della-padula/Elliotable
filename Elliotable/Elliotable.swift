@@ -203,7 +203,7 @@ public enum roundOption: Int {
     public var minimumCourseStartTime: Int?
     
     var averageWidth: CGFloat {
-        return (collectionView.frame.width - widthOfTimeAxis) / CGFloat(daySymbols.count) - 0.1
+        return (collectionView.frame.width - widthOfTimeAxis) / CGFloat(daySymbols.count)
     }
     
     public override init(frame: CGRect) {
