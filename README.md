@@ -2,9 +2,8 @@
 Elliotable is simple library to generate **Timetable** of University.   
 If you only add a course, **the course time is automatically calculated** and added to the timetable.   
 
-### What's New in v1.2.4  
-- Implementation of Event Delegate, Data Source Delegate Pattern  
-- Scrolling Issue Resolved  
+### What's New in v1.2.5      
+- Professor Name Added  
   
   
 ## Korean Version     
@@ -19,9 +18,9 @@ Timetable Library for iOS Development
 Author : Elliott Kim / Seoul, South Korea   
 Email : della.kimko@gmail.com   
 Blog : https://terry-some.tistory.com/
-Newest Version : 1.2.4 (Cocoapods)  
+Newest Version : 1.2.5 (Cocoapods)  
   
-[![Version](https://img.shields.io/badge/version-v1.2.4-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.2.5-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
@@ -46,6 +45,7 @@ pod 'Elliotable'
 courseId : The identifier of the course   
 courseName : The name of the course
 roomName : The name of the lecture room
+professor : Professor Name
 courseDay : Weekday of the course
 startTime : Start time of course (String type - format : "HH:mm")
 endTime : End time of course (String type - format : "HH:mm")
@@ -67,9 +67,9 @@ import Elliotable
 ```
 And then, create courses to add to the timetable.   
 ```swift
-let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor])
+let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", roomName: "IT Building 21204", professor: "TEST", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor])
 
-let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor])
+let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", professor: "TEST", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor])
 ```
 Finally, define the properties of the timetable.   
 ```swift
