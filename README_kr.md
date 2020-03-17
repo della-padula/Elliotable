@@ -4,7 +4,7 @@ Elliotable은 간단하게 대한민국 대학교 시간표를 누구나 손쉽�
 본 라이브러리는 **시간표의 시작 시각과 종료 시각을 자동으로 계산**하여 적용합니다.  
 강의 아이템을 추가하면 **가장 빠른 시간**과 **가장 늦은 시간**을 계산하여 시간표를 구성해줍니다.  
 
-### What's New in v1.2.4   
+### What's New in v1.2.5   
 - Delegate 패턴 적용으로 Table View 사용하듯이 이벤트 처리 가능.  
 - 스크롤 후 테이블 업데이트 시 강좌아이템 오류 해결  
 
@@ -13,9 +13,9 @@ iOS 개발을 위한 시간표 라이브러리
 개발자 : 김태인 / 서울, 대한민국   
 이메일 : della.kimko@gmail.com   
 블로그 : https://terry-some.tistory.com/  
-최신 버전 : 1.2.4 (Cocoapods)    
+최신 버전 : 1.2.5 (Cocoapods)    
   
-[![Version](https://img.shields.io/badge/version-v1.2.4-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
+[![Version](https://img.shields.io/badge/version-v1.2.5-green.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/badge/ios-11.0-blue.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![Version](https://img.shields.io/cocoapods/v/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
 [![License](https://img.shields.io/cocoapods/l/Elliotable.svg?style=flat)](http://cocoapods.org/pods/Elliotable)
@@ -40,6 +40,7 @@ pod 'Elliotable'
 courseId : 강의 고유번호(ID)   
 courseName : 강의 이름 
 roomName : 강의실 이름(예 : 정보과학관 21101)
+professor: 교수 이름  
 courseDay : 요일
 startTime : 강의 시작 시간(형식 - "HH:mm")
 endTime : 강의 종료 시간(형식 - "HH:mm")
@@ -61,9 +62,9 @@ import Elliotable
 ```
 시간표 강의 아이템들을 원하는 만큼 추가해줍니다.   
 ```swift
-let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor])
+let course_1 = ElliottEvent(courseId: "c0001", courseName: "Operating System", roomName: "IT Building 21204", professor: "TEST", courseDay: .tuesday, startTime: "12:00", endTime: "13:15", backgroundColor: [UIColor])
 
-let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor])
+let course_2 = ElliottEvent(courseId: "c0002", courseName: "Operating System", roomName: "IT Building 21204", professor: "TEST", courseDay: .thursday, startTime: "12:00", endTime: "13:15", textColor: UIColor.white, backgroundColor: [UIColor])
 ```
 아울렛 변수를 선언해줍니다.   
 ```swift
