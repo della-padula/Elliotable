@@ -9,7 +9,7 @@ Elliotable은 간단하게 대한민국 대학교 시간표를 누구나 손쉽�
 
 ### 개발자 정보
 iOS 개발을 위한 시간표 라이브러리   
-개발자 : 김태인 / 서울, 대한민국   
+개발자 : 김태인 (Denny.K) / 서울, 대한민국   
 이메일 : della.kimko@gmail.com   
 블로그 : https://terry-some.tistory.com/  
 최신 버전 : 1.2.5 (Cocoapods)    
