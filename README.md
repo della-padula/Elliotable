@@ -15,7 +15,7 @@ Click the link below to view the Korean version READMD.md.
 
 ## Author Information  
 Timetable Library for iOS Development   
-Author : Elliott Kim / Seoul, South Korea   
+Author : Denny.K (Taein Kim) / Seoul, South Korea   
 Email : della.kimko@gmail.com   
 Blog : https://terry-some.tistory.com/
 Newest Version : 1.2.5 (Cocoapods)  
