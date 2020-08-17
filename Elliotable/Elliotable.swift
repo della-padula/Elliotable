@@ -193,8 +193,6 @@ public enum roundOption: Int {
             }
         }
         
-//        daySymbolText = self.userDaySymbol ?? Calendar.current.shortStandaloneWeekdaySymbols
-        
         let startIndex = self.startDay.rawValue - 1
         daySymbolText.rotate(shiftingToStart: startIndex)
         return daySymbolText
@@ -240,7 +238,6 @@ public enum roundOption: Int {
         var minStartTimeHour: Int = 24
         var maxEndTimeHour: Int = 0
         
-//        collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         collectionView.reloadData()
         collectionView.collectionViewLayout.invalidateLayout()
         
@@ -299,8 +296,6 @@ public enum roundOption: Int {
             let position_x = collectionView.bounds.minX + widthOfTimeAxis + averageWidth * CGFloat(weekdayIndex) + rectEdgeInsets.left
             
             // 요일 높이 + 평균 셀 높이 * 시간 차이 개수 + 분에 대한 추가 여백
-//            print("Frame minY: \(collectionView.frame.minY)")
-//            print("Bounds minY: \(collectionView.bounds.minY)")
             let position_y = collectionView.frame.minY + heightOfDaySection + averageHeight * CGFloat(courseStartHour - minStartTimeHour) +
                 CGFloat((CGFloat(courseStartMin) / 60) * averageHeight) + rectEdgeInsets.top
             
