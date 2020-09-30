@@ -8,7 +8,7 @@ XCode 12 Beta Build Success!!
 - Professor Name Added  
   
   
-## Swift UI Supported (Under Construction)  
+## Swift UI Supported  
 Go to [ElliotableSwiftUI](https://github.com/della-padula/ElliotableSwiftUI) for Swift UI.  
   
 ## Korean Version     
