@@ -2,12 +2,14 @@
 Elliotable is simple library to generate **Timetable** of University.   
 If you only add a course, **the course time is automatically calculated** and added to the timetable.   
   
-XCode 12 Beta Build Success!!  
+XCode 12.3 Build Success!!  
   
 ### What's New in v1.2.5      
 - Professor Name Added  
   
-  
+### Demo Project  
+Go to [Demo Project Git](https://github.com/della-padula/ElliotableDemo)
+
 ## Swift UI Supported  
 Go to [ElliotableSwiftUI](https://github.com/della-padula/ElliotableSwiftUI) for Swift UI.  
   
