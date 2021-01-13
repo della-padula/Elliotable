@@ -24,6 +24,7 @@ Click the link below to view the Korean version READMD.md.
 Timetable Library for iOS Development   
 Author : Denny.K (Taein Kim) / Seoul, South Korea   
 Email : della.kimko@gmail.com   
+YouTube : https://www.youtube.com/channel/UC7W2lBYHzGYlIZogDNbwUxA  
 Blog : https://terry-some.tistory.com/
 Newest Version : 1.2.5 (Cocoapods)  
   
