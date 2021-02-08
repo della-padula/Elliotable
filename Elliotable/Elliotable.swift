@@ -42,7 +42,6 @@ public enum roundOption: Int {
     
     public var courseCells = [ElliotableCell]()
     
-    // Settable Options of Time Table View
     public var startDay = ElliotDay.monday {
         didSet {
             makeTimeTable()
@@ -67,7 +66,6 @@ public enum roundOption: Int {
         }
     }
     
-    // Item for Course
     public var courseItems = [ElliottEvent]() {
         didSet {
             makeTimeTable()
