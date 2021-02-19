@@ -48,6 +48,12 @@ public enum roundOption: Int {
         }
     }
     
+    public var timeTableScrollEnabled: Bool = true {
+        didSet {
+            collectionView.isScrollEnabled = timeTableScrollEnabled
+        }
+    }
+    
     public var isFullBorder: Bool = false {
         didSet {
             makeTimeTable()
